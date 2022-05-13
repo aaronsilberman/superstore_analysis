@@ -1,0 +1,2077 @@
+<!DOCTYPE html>
+<!-- saved from url=(0054)http://127.0.0.1:7514/Superstore%20data%20analysis.Rmd -->
+<html class=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <script type="application/shiny-singletons"></script>
+  <script type="application/html-dependencies">jquery[3.6.0];shiny-css[1.7.1];shiny-javascript[1.7.1]</script>
+<script src="./Superstore data analysis_files/jquery.min.js"></script>
+<link href="./Superstore data analysis_files/shiny.min.css" rel="stylesheet">
+<script src="./Superstore data analysis_files/shiny.min.js"></script>  <script src="./Superstore data analysis_files/rmd_loader.js"></script>
+  <link href="./Superstore data analysis_files/rmd_loader.css" rel="stylesheet">
+<script src="./Superstore data analysis_files/header-attrs.js"></script><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" type="text/css" href="./Superstore data analysis_files/bootstrap.min.css"><script src="./Superstore data analysis_files/bootstrap.min.js"></script><script src="./Superstore data analysis_files/html5shiv.min.js"></script><script src="./Superstore data analysis_files/respond.min.js"></script><style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style><script src="./Superstore data analysis_files/tabsets.js"></script><link rel="stylesheet" type="text/css" href="./Superstore data analysis_files/default.css"><script src="./Superstore data analysis_files/highlight.js"></script><script src="./Superstore data analysis_files/htmlwidgets.js"></script><link rel="stylesheet" type="text/css" href="./Superstore data analysis_files/datatables-crosstalk.css"><script src="./Superstore data analysis_files/datatables.js"></script><link rel="stylesheet" type="text/css" href="./Superstore data analysis_files/jquery.dataTables.min.css"><link rel="stylesheet" type="text/css" href="./Superstore data analysis_files/jquery.dataTables.extra.css"><script src="./Superstore data analysis_files/jquery.dataTables.min.js"></script><link rel="stylesheet" type="text/css" href="./Superstore data analysis_files/crosstalk.min.css"><script src="./Superstore data analysis_files/crosstalk.min.js"></script><script src="./Superstore data analysis_files/proj4.js"></script><link rel="stylesheet" type="text/css" href="./Superstore data analysis_files/motion.css"><script src="./Superstore data analysis_files/highcharts.js"></script><script src="./Superstore data analysis_files/highcharts-3d.js"></script><script src="./Superstore data analysis_files/highcharts-more.js"></script><script src="./Superstore data analysis_files/stock.js"></script><script src="./Superstore data analysis_files/map.js"></script><script src="./Superstore data analysis_files/data.js"></script><script src="./Superstore data analysis_files/exporting.js"></script><script src="./Superstore data analysis_files/offline-exporting.js"></script><script src="./Superstore data analysis_files/drilldown.js"></script><script src="./Superstore data analysis_files/item-series.js"></script><script src="./Superstore data analysis_files/overlapping-datalabels.js"></script><script src="./Superstore data analysis_files/annotations.js"></script><script src="./Superstore data analysis_files/export-data.js"></script><script src="./Superstore data analysis_files/funnel.js"></script><script src="./Superstore data analysis_files/heatmap.js"></script><script src="./Superstore data analysis_files/treemap.js"></script><script src="./Superstore data analysis_files/sankey.js"></script><script src="./Superstore data analysis_files/dependency-wheel.js"></script><script src="./Superstore data analysis_files/organization.js"></script><script src="./Superstore data analysis_files/solid-gauge.js"></script><script src="./Superstore data analysis_files/streamgraph.js"></script><script src="./Superstore data analysis_files/sunburst.js"></script><script src="./Superstore data analysis_files/vector.js"></script><script src="./Superstore data analysis_files/wordcloud.js"></script><script src="./Superstore data analysis_files/xrange.js"></script><script src="./Superstore data analysis_files/tilemap.js"></script><script src="./Superstore data analysis_files/venn.js"></script><script src="./Superstore data analysis_files/gantt.js"></script><script src="./Superstore data analysis_files/timeline.js"></script><script src="./Superstore data analysis_files/parallel-coordinates.js"></script><script src="./Superstore data analysis_files/bullet.js"></script><script src="./Superstore data analysis_files/coloraxis.js"></script><script src="./Superstore data analysis_files/dumbbell.js"></script><script src="./Superstore data analysis_files/lollipop.js"></script><script src="./Superstore data analysis_files/series-label.js"></script><script src="./Superstore data analysis_files/motion.js"></script><script src="./Superstore data analysis_files/reset.js"></script><script src="./Superstore data analysis_files/boost.js"></script><script src="./Superstore data analysis_files/highchart.js"></script><link rel="stylesheet" type="text/css" href="./Superstore data analysis_files/rmd_perf.css"><script src="./Superstore data analysis_files/rmd_perf.js"></script><meta name="rstudio_origin" content="127.0.0.1:26349"><script src="./Superstore data analysis_files/rsiframe.js"></script>
+
+
+<meta name="generator" content="pandoc">
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE">
+
+
+<meta name="author" content="Aaron Silberman">
+
+<meta name="date" content="2022-05-12">
+
+<title>Superstore data analysis</title>
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+<script type="text/javascript" src="./Superstore data analysis_files/MathJax.js"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+<body><div id="MathJax_Message" style="display: none;"></div>
+  <div>
+    <div data-display-if="!output.__reactivedoc__" data-ns-prefix="" style="display: none;">
+      <div id="rmd_loader_wrapper">
+        <div id="rmd_loader" style="">
+          <p>Please wait...</p>
+          <img src="./Superstore data analysis_files/rmd_loader.gif">
+        </div>
+      </div>
+    </div>
+    <div id="__reactivedoc__" class="shiny-html-output shiny-bound-output" aria-live="polite">
+
+
+
+
+
+
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div id="section-header">
+
+
+
+<h1 class="title toc-ignore">Superstore data analysis</h1>
+<h4 class="author">Aaron Silberman</h4>
+<h4 class="date">2022-05-12</h4>
+
+</div>
+
+
+<div id="section-introduction" class="section level2">
+<h2>Introduction</h2>
+<p>This is an exploratory and descriptive analysis of this Superstore’s
+customers, products, segments, and regions to better understand what and
+who to target or avoid in future campaigns, thereby providing
+data-driven insights.</p>
+<p>Based on the dataset, we will be attempting to answer the following,
+but also will answer more questions as they arise through analysis:</p>
+<ol style="list-style-type: decimal">
+<li><p>Which products are the best selling? Least selling?</p>
+<ul>
+<li>Which products are the most profitable? Least profitable?</li>
+</ul></li>
+<li><p>What product (sub)categories have the highest sales? Lowest
+sales?</p>
+<ul>
+<li>Which product (sub)categories are the most profitable? Least
+profitable?</li>
+</ul></li>
+<li><p>What is the composition of the customer base?</p>
+<ul>
+<li><p>By segment?</p></li>
+<li><p>By region?</p></li>
+</ul></li>
+</ol>
+</div>
+<div id="section-cleaning-and-processing-data" class="section level2">
+<h2>Cleaning and processing data</h2>
+<p>First, I’ll import the data and get acquainted. I’ll remove names
+from the imported file to preserve data anonymity.</p>
+<pre class="r"><code class="hljs">Superstore_data &lt;- read_csv(<span class="hljs-string">"~/Downloads/Sample - Superstore 2.csv"</span>) %&gt;% 
+  clean_names() %&gt;% 
+  select(-c(<span class="hljs-number">7</span>)) %&gt;% 
+  mutate(order_date = as.Date(order_date, format = <span class="hljs-string">"%m/%d/%y"</span>),
+         ship_date = as.Date(ship_date, format = <span class="hljs-string">"%m/%d/%y"</span>))
+skimr::skim(Superstore_data) </code></pre>
+<table class="table table-condensed">
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Name</td>
+<td align="left">Superstore_data</td>
+</tr>
+<tr class="even">
+<td align="left">Number of rows</td>
+<td align="left">9994</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of columns</td>
+<td align="left">20</td>
+</tr>
+<tr class="even">
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">character</td>
+<td align="left">12</td>
+</tr>
+<tr class="odd">
+<td align="left">Date</td>
+<td align="left">2</td>
+</tr>
+<tr class="even">
+<td align="left">numeric</td>
+<td align="left">6</td>
+</tr>
+<tr class="odd">
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table class="table table-condensed">
+<colgroup>
+<col width="19%">
+<col width="13%">
+<col width="19%">
+<col width="5%">
+<col width="5%">
+<col width="8%">
+<col width="12%">
+<col width="15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">min</th>
+<th align="right">max</th>
+<th align="right">empty</th>
+<th align="right">n_unique</th>
+<th align="right">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">order_id</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">14</td>
+<td align="right">14</td>
+<td align="right">0</td>
+<td align="right">5009</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">ship_mode</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">8</td>
+<td align="right">14</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">customer_id</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">8</td>
+<td align="right">8</td>
+<td align="right">0</td>
+<td align="right">793</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">segment</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">8</td>
+<td align="right">11</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">country</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">city</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">17</td>
+<td align="right">0</td>
+<td align="right">531</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">state</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">20</td>
+<td align="right">0</td>
+<td align="right">49</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">region</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">7</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">product_id</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">0</td>
+<td align="right">1862</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">category</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">9</td>
+<td align="right">15</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">sub_category</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">11</td>
+<td align="right">0</td>
+<td align="right">17</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">product_name</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">127</td>
+<td align="right">0</td>
+<td align="right">1850</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: Date</strong></p>
+<table class="table table-condensed">
+<colgroup>
+<col width="17%">
+<col width="12%">
+<col width="17%">
+<col width="13%">
+<col width="13%">
+<col width="13%">
+<col width="11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="left">min</th>
+<th align="left">max</th>
+<th align="left">median</th>
+<th align="right">n_unique</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">order_date</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="left">2014-01-03</td>
+<td align="left">2017-12-30</td>
+<td align="left">2016-06-26</td>
+<td align="right">1237</td>
+</tr>
+<tr class="even">
+<td align="left">ship_date</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="left">2014-01-07</td>
+<td align="left">2018-01-05</td>
+<td align="left">2016-06-29</td>
+<td align="right">1334</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table class="table table-condensed">
+<colgroup>
+<col width="13%">
+<col width="9%">
+<col width="13%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="5%">
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">row_id</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4997.50</td>
+<td align="right">2885.16</td>
+<td align="right">1.00</td>
+<td align="right">2499.25</td>
+<td align="right">4997.50</td>
+<td align="right">7495.75</td>
+<td align="right">9994.00</td>
+<td align="left">▇▇▇▇▇</td>
+</tr>
+<tr class="even">
+<td align="left">postal_code</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">55190.38</td>
+<td align="right">32063.69</td>
+<td align="right">1040.00</td>
+<td align="right">23223.00</td>
+<td align="right">56430.50</td>
+<td align="right">90008.00</td>
+<td align="right">99301.00</td>
+<td align="left">▆▃▃▅▇</td>
+</tr>
+<tr class="odd">
+<td align="left">sales</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">229.86</td>
+<td align="right">623.25</td>
+<td align="right">0.44</td>
+<td align="right">17.28</td>
+<td align="right">54.49</td>
+<td align="right">209.94</td>
+<td align="right">22638.48</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">quantity</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.79</td>
+<td align="right">2.23</td>
+<td align="right">1.00</td>
+<td align="right">2.00</td>
+<td align="right">3.00</td>
+<td align="right">5.00</td>
+<td align="right">14.00</td>
+<td align="left">▇▅▁▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">discount</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.16</td>
+<td align="right">0.21</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.20</td>
+<td align="right">0.20</td>
+<td align="right">0.80</td>
+<td align="left">▇▆▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">profit</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">28.66</td>
+<td align="right">234.26</td>
+<td align="right">-6599.98</td>
+<td align="right">1.73</td>
+<td align="right">8.67</td>
+<td align="right">29.36</td>
+<td align="right">8399.98</td>
+<td align="left">▁▁▇▁▁</td>
+</tr>
+</tbody>
+</table>
+<p>As we can see from the skim, each variable has a complete rate of 1,
+so we can move on knowing that the data are complete.</p>
+<p>Now we can check for data input errors in categorical data, including
+region, segment, ship mode, category, and subcategory.</p>
+<pre class="r"><code class="hljs">unique(Superstore_data$segment)</code></pre>
+<pre><code class="hljs">## [1] "Consumer"    "Corporate"   "Home Office"</code></pre>
+<pre class="r"><code class="hljs">unique(Superstore_data$ship_mode)</code></pre>
+<pre><code class="hljs">## [1] "Second Class"   "Standard Class" "First Class"    "Same Day"</code></pre>
+<pre class="r"><code class="hljs">unique(Superstore_data$region)</code></pre>
+<pre><code class="hljs">## [1] "South"   "West"    "Central" "East"</code></pre>
+<pre class="r"><code class="hljs">unique(Superstore_data$category)</code></pre>
+<pre><code class="hljs">## [1] "Furniture"       "Office Supplies" "Technology"</code></pre>
+<pre class="r"><code class="hljs">unique(Superstore_data$sub_category)</code></pre>
+<pre><code class="hljs">##  [1] "Bookcases"   "Chairs"      "Labels"      "Tables"      "Storage"    
+##  [6] "Furnishings" "Art"         "Phones"      "Binders"     "Appliances" 
+## [11] "Paper"       "Accessories" "Envelopes"   "Fasteners"   "Supplies"   
+## [16] "Machines"    "Copiers"</code></pre>
+<p>The data looks to be free of input errors, so we can move on.</p>
+<div id="section-variable-generation" class="section level3">
+<h3>Variable Generation</h3>
+<p>Now that the data is clean, now we’ll create some variables. First,
+we’ll create a turnaround time variable to calculate the amount of days
+between the order date and ship date.</p>
+<pre class="r"><code class="hljs">Superstore_data &lt;- Superstore_data%&gt;% 
+  mutate(order_date = as.Date(order_date, format = <span class="hljs-string">"%m/%d/%y"</span>),
+         ship_date = as.Date(ship_date, format = <span class="hljs-string">"%m/%d/%y"</span>),
+         turnaround = ship_date - order_date)
+Superstore_data %&gt;% 
+  select(order_date, ship_date, turnaround) %&gt;% 
+  head() %&gt;% 
+  DT::datatable()</code></pre>
+<div id="htmlwidget-5c2b5ab547239cc516ca" style="width:100%;height:auto;" class="datatables html-widget html-widget-static-bound"><div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer"><div class="dataTables_length" id="DataTables_Table_0_length"><label>Show <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div><div id="DataTables_Table_0_filter" class="dataTables_filter"><label>Search:<input type="search" class="" placeholder="" aria-controls="DataTables_Table_0"></label></div><table class="display dataTable no-footer" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info">
+  <thead>
+    <tr><th class="sorting_disabled" rowspan="1" colspan="1" aria-label=" "> </th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="order_date: activate to sort column ascending">order_date</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="ship_date: activate to sort column ascending">ship_date</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="turnaround: activate to sort column ascending">turnaround</th></tr>
+  </thead><tbody><tr class="odd"><td>1</td><td>2016-11-08</td><td>2016-11-11</td><td>3</td></tr><tr class="even"><td>2</td><td>2016-11-08</td><td>2016-11-11</td><td>3</td></tr><tr class="odd"><td>3</td><td>2016-06-12</td><td>2016-06-16</td><td>4</td></tr><tr class="even"><td>4</td><td>2015-10-11</td><td>2015-10-18</td><td>7</td></tr><tr class="odd"><td>5</td><td>2015-10-11</td><td>2015-10-18</td><td>7</td></tr><tr class="even"><td>6</td><td>2014-06-09</td><td>2014-06-14</td><td>5</td></tr></tbody>
+</table><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 6 of 6 entries</div><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><a class="paginate_button previous disabled" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="-1" id="DataTables_Table_0_previous">Previous</a><span><a class="paginate_button current" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0">1</a></span><a class="paginate_button next disabled" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="-1" id="DataTables_Table_0_next">Next</a></div></div></div>
+<script type="application/json" data-for="htmlwidget-5c2b5ab547239cc516ca">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],["2016-11-08","2016-11-08","2016-06-12","2015-10-11","2015-10-11","2014-06-09"],["2016-11-11","2016-11-11","2016-06-16","2015-10-18","2015-10-18","2014-06-14"],[3,3,4,7,7,5]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>order_date<\/th>\n      <th>ship_date<\/th>\n      <th>turnaround<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<p>Next, we’ll create a profit margin variable for each product to
+better compare profitability across products and categories.</p>
+<pre class="r"><code class="hljs">Superstore_data &lt;- Superstore_data %&gt;% 
+  mutate(margin = round(profit/sales, <span class="hljs-number">2</span>))
+Superstore_data %&gt;% 
+  select(sales, profit, margin) %&gt;% 
+  head() %&gt;% 
+  DT::datatable()</code></pre>
+<div id="htmlwidget-d2b37ff6421444836e98" style="width:100%;height:auto;" class="datatables html-widget html-widget-static-bound"><div id="DataTables_Table_1_wrapper" class="dataTables_wrapper no-footer"><div class="dataTables_length" id="DataTables_Table_1_length"><label>Show <select name="DataTables_Table_1_length" aria-controls="DataTables_Table_1" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div><div id="DataTables_Table_1_filter" class="dataTables_filter"><label>Search:<input type="search" class="" placeholder="" aria-controls="DataTables_Table_1"></label></div><table class="display dataTable no-footer" id="DataTables_Table_1" aria-describedby="DataTables_Table_1_info">
+  <thead>
+    <tr><th class="sorting_disabled" rowspan="1" colspan="1" aria-label=" "> </th><th class="dt-right sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-label="sales: activate to sort column ascending">sales</th><th class="dt-right sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-label="profit: activate to sort column ascending">profit</th><th class="dt-right sorting" tabindex="0" aria-controls="DataTables_Table_1" rowspan="1" colspan="1" aria-label="margin: activate to sort column ascending">margin</th></tr>
+  </thead><tbody><tr class="odd"><td>1</td><td class=" dt-right">261.96</td><td class=" dt-right">41.9136</td><td class=" dt-right">0.16</td></tr><tr class="even"><td>2</td><td class=" dt-right">731.94</td><td class=" dt-right">219.582</td><td class=" dt-right">0.3</td></tr><tr class="odd"><td>3</td><td class=" dt-right">14.62</td><td class=" dt-right">6.8714</td><td class=" dt-right">0.47</td></tr><tr class="even"><td>4</td><td class=" dt-right">957.5775</td><td class=" dt-right">-383.031</td><td class=" dt-right">-0.4</td></tr><tr class="odd"><td>5</td><td class=" dt-right">22.368</td><td class=" dt-right">2.5164</td><td class=" dt-right">0.11</td></tr><tr class="even"><td>6</td><td class=" dt-right">48.86</td><td class=" dt-right">14.1694</td><td class=" dt-right">0.29</td></tr></tbody>
+</table><div class="dataTables_info" id="DataTables_Table_1_info" role="status" aria-live="polite">Showing 1 to 6 of 6 entries</div><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_1_paginate"><a class="paginate_button previous disabled" aria-controls="DataTables_Table_1" data-dt-idx="0" tabindex="-1" id="DataTables_Table_1_previous">Previous</a><span><a class="paginate_button current" aria-controls="DataTables_Table_1" data-dt-idx="1" tabindex="0">1</a></span><a class="paginate_button next disabled" aria-controls="DataTables_Table_1" data-dt-idx="2" tabindex="-1" id="DataTables_Table_1_next">Next</a></div></div></div>
+<script type="application/json" data-for="htmlwidget-d2b37ff6421444836e98">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],[261.96,731.94,14.62,957.5775,22.368,48.86],[41.9136,219.582,6.8714,-383.031,2.5164,14.1694],[0.16,0.3,0.47,-0.4,0.11,0.29]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>sales<\/th>\n      <th>profit<\/th>\n      <th>margin<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div id="section-analysis" class="section level2">
+<h2>Analysis</h2>
+<div id="section-sales-profits-and-margins" class="section level3">
+<h3>Sales, Profits, and Margins</h3>
+<p>First we’ll see which segments, regions, categories, and
+subcategories are have the greatest sales values and are most
+profitable.</p>
+<div id="section-segments" class="section level4">
+<h4>Segments</h4>
+<pre class="r"><code class="hljs">agg_by_segment &lt;- aggregate(cbind(sales, profit) ~ segment, data = Superstore_data, sum)
+agg_by_segment &lt;- agg_by_segment[order(agg_by_segment$profit, decreasing = <span class="hljs-literal">T</span>),] %&gt;% 
+  mutate(sales = round(sales,<span class="hljs-number">2</span>),
+         profit = round(profit,<span class="hljs-number">2</span>)) 
+DT::datatable(agg_by_segment, caption = <span class="hljs-string">"Total sales and profits for each customer segment ($)"</span>)</code></pre>
+<div id="htmlwidget-c1baa6091544915a969d" style="width:100%;height:auto;" class="datatables html-widget html-widget-static-bound"><div id="DataTables_Table_2_wrapper" class="dataTables_wrapper no-footer"><div class="dataTables_length" id="DataTables_Table_2_length"><label>Show <select name="DataTables_Table_2_length" aria-controls="DataTables_Table_2" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div><div id="DataTables_Table_2_filter" class="dataTables_filter"><label>Search:<input type="search" class="" placeholder="" aria-controls="DataTables_Table_2"></label></div><table class="display dataTable no-footer" id="DataTables_Table_2" aria-describedby="DataTables_Table_2_info"><caption>Total sales and profits for each customer segment ($)</caption>
+  <thead>
+    <tr><th class="sorting_disabled" rowspan="1" colspan="1" aria-label=" "> </th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" aria-label="segment: activate to sort column ascending">segment</th><th class="dt-right sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" aria-label="sales: activate to sort column ascending">sales</th><th class="dt-right sorting" tabindex="0" aria-controls="DataTables_Table_2" rowspan="1" colspan="1" aria-label="profit: activate to sort column ascending">profit</th></tr>
+  </thead><tbody><tr class="odd"><td>1</td><td>Consumer</td><td class=" dt-right">1161401.34</td><td class=" dt-right">134119.21</td></tr><tr class="even"><td>2</td><td>Corporate</td><td class=" dt-right">706146.37</td><td class=" dt-right">91979.13</td></tr><tr class="odd"><td>3</td><td>Home Office</td><td class=" dt-right">429653.15</td><td class=" dt-right">60298.68</td></tr></tbody>
+</table><div class="dataTables_info" id="DataTables_Table_2_info" role="status" aria-live="polite">Showing 1 to 3 of 3 entries</div><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_2_paginate"><a class="paginate_button previous disabled" aria-controls="DataTables_Table_2" data-dt-idx="0" tabindex="-1" id="DataTables_Table_2_previous">Previous</a><span><a class="paginate_button current" aria-controls="DataTables_Table_2" data-dt-idx="1" tabindex="0">1</a></span><a class="paginate_button next disabled" aria-controls="DataTables_Table_2" data-dt-idx="2" tabindex="-1" id="DataTables_Table_2_next">Next</a></div></div></div>
+<script type="application/json" data-for="htmlwidget-c1baa6091544915a969d">{"x":{"filter":"none","vertical":false,"caption":"<caption>Total sales and profits for each customer segment ($)<\/caption>","data":[["1","2","3"],["Consumer","Corporate","Home Office"],[1161401.34,706146.37,429653.15],[134119.21,91979.13,60298.68]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>segment<\/th>\n      <th>sales<\/th>\n      <th>profit<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  group_by(segment) %&gt;% 
+  summarise(value = sum(sales)) %&gt;% 
+  mutate(value = value/sum(value, na.rm = <span class="hljs-literal">T</span>)*<span class="hljs-number">100</span>) %&gt;% 
+  mutate(value = round(value)) %&gt;% 
+  arrange(-value) %&gt;% 
+  hchart(<span class="hljs-string">"pie"</span>,hcaes(x=segment,y=value, color=segment), name=<span class="hljs-string">" sales proportion%"</span>,dataLabels=list(enabled=<span class="hljs-literal">TRUE</span>,format=<span class="hljs-string">"{point.name}: {point.y}%"</span>))</code></pre>
+<div id="htmlwidget-1ea7574623e83b3948f2" style="width: 672px; height: 480px; overflow: hidden;" class="highchart html-widget html-widget-static-bound" data-highcharts-chart="0"><div id="highcharts-v9hxnmk-0" dir="ltr" class="highcharts-container " style="position: relative; overflow: hidden; width: 672px; height: 480px; text-align: left; line-height: normal; z-index: 0; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); user-select: none; touch-action: manipulation; outline: none;"><svg version="1.1" class="highcharts-root" style="font-family:&quot;Lucida Grande&quot;, &quot;Lucida Sans Unicode&quot;, Arial, Helvetica, sans-serif;font-size:12px;" xmlns="http://www.w3.org/2000/svg" width="672" height="480" viewBox="0 0 672 480"><desc>Created with Highcharts 9.3.1</desc><defs><clippath id="highcharts-v9hxnmk-4-"><rect x="0" y="0" width="652" height="455" fill="none"></rect></clippath><clippath id="highcharts-v9hxnmk-5-"><rect x="10" y="10" width="652" height="455" fill="none"></rect></clippath></defs><rect fill="transparent" class="highcharts-background" x="0" y="0" width="672" height="480" rx="0" ry="0"></rect><rect fill="none" class="highcharts-plot-background" x="10" y="10" width="652" height="455"></rect><g class="highcharts-pane-group" data-z-index="0"></g><rect fill="none" class="highcharts-plot-border" data-z-index="1" x="10" y="10" width="652" height="455"></rect><g class="highcharts-series-group" data-z-index="3"><g class="highcharts-series highcharts-series-0 highcharts-pie-series highcharts-tracker" data-z-index="0.1" opacity="1" transform="translate(10,10) scale(1 1)" clip-path="none"><path fill="#440154" d="M 311.45865433964985 24.5000042105016 A 203 203 0 1 1 305.3695865289911 430.40741245867406 L 311.5 227.5 A 0 0 0 1 0 311.5 227.5 Z" transform="translate(0,0)" stroke="#ffffff" stroke-width="1" opacity="1" stroke-linejoin="round" class="highcharts-point highcharts-color-0"></path><path fill="#21908C" d="M 305.1666822155568 430.401180592527 A 203 203 0 0 1 123.54399564624441 150.80879824014352 L 311.5 227.5 A 0 0 0 0 0 311.5 227.5 Z" transform="translate(0,0)" stroke="#ffffff" stroke-width="1" opacity="1" stroke-linejoin="round" class="highcharts-point highcharts-color-1"></path><path fill="#FDE725" d="M 123.62078081321675 150.6208806127135 A 203 203 0 0 1 311.21803707257146 24.500195820519167 L 311.5 227.5 A 0 0 0 0 0 311.5 227.5 Z" transform="translate(0,0)" stroke="#ffffff" stroke-width="1" opacity="1" stroke-linejoin="round" class="highcharts-point highcharts-color-2"></path></g><g class="highcharts-markers highcharts-series-0 highcharts-pie-series" data-z-index="0.1" opacity="1" transform="translate(10,10) scale(1 1)" clip-path="none"></g></g><text x="336" text-anchor="middle" class="highcharts-title" data-z-index="4" style="color:#333333;font-size:18px;fill:#333333;" y="24"></text><text x="336" text-anchor="middle" class="highcharts-subtitle" data-z-index="4" style="color:#666666;fill:#666666;" y="24"></text><text x="10" text-anchor="start" class="highcharts-caption" data-z-index="4" style="color:#666666;fill:#666666;" y="477"></text><g class="highcharts-data-labels highcharts-series-0 highcharts-pie-series highcharts-tracker" data-z-index="6" opacity="1" transform="translate(10,10) scale(1 1)"><path fill="none" class="highcharts-data-label-connector highcharts-color-0" stroke="#440154" stroke-width="1" d="M 549.4718217396148 231.1235721774418 C 544.4718217396148 231.1235721774418 526.4739986009322 230.84363956287547 520.4747242213713 230.75032869135336 L 514.4754498418104 230.65701781983125"></path><path fill="none" class="highcharts-data-label-connector highcharts-color-1" stroke="#21908C" stroke-width="1" d="M 111.02399664975582 354.2995745821544 C 116.02399664975582 354.2995745821544 131.12514712316522 344.50389929254584 136.15886394763504 341.2386741960097 L 141.19258077210486 337.97344909947356"></path><path fill="none" class="highcharts-data-label-connector highcharts-color-2" stroke="#FDE725" stroke-width="1" d="M 176.67575410596524 34.01960001580213 C 181.67575410596524 34.01960001580213 191.7050949904829 48.966583705568496 195.04820861865548 53.94891160215728 L 198.39132224682805 58.931239498746066"></path><g class="highcharts-label highcharts-data-label highcharts-data-label-color-0" data-z-index="1" transform="translate(554,221)"><text x="5" data-z-index="1" y="16" style="color:#000000;font-size:11px;font-weight:bold;fill:#000000;"><tspan class="highcharts-text-outline" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2px" stroke-linejoin="round" style="">Consumer: 51%<tspan x="5" y="16">​</tspan></tspan>Consumer: 51%</text></g><g class="highcharts-label highcharts-data-label highcharts-data-label-color-1" data-z-index="1" transform="translate(10,344)"><text x="5" data-z-index="1" y="16" style="color:#000000;font-size:11px;font-weight:bold;fill:#000000;"><tspan class="highcharts-text-outline" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2px" stroke-linejoin="round" style="">Corporate: 31%<tspan x="5" y="16">​</tspan></tspan>Corporate: 31%</text></g><g class="highcharts-label highcharts-data-label highcharts-data-label-color-2" data-z-index="1" transform="translate(63,24)"><text x="5" data-z-index="1" y="16" style="color:#000000;font-size:11px;font-weight:bold;fill:#000000;"><tspan class="highcharts-text-outline" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2px" stroke-linejoin="round" style="">Home Office: 19%<tspan x="5" y="16">​</tspan></tspan>Home Office: 19%</text></g></g><g class="highcharts-legend highcharts-no-tooltip" data-z-index="7"><rect fill="none" class="highcharts-legend-box" rx="0" ry="0" x="0" y="0" width="8" height="8" visibility="hidden"></rect><g data-z-index="1"><g></g></g></g><g class="highcharts-control-points" data-z-index="99" clip-path="url(#highcharts-v9hxnmk-5-)"></g></svg></div></div>
+<script type="application/json" data-for="htmlwidget-1ea7574623e83b3948f2">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":null},"yAxis":{"title":{"text":"value"},"type":"linear"},"credits":{"enabled":false},"exporting":{"enabled":false},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":false},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"group":"group","data":[{"segment":"Consumer","value":51,"y":51,"color":"#440154","name":"Consumer","colorv":"Consumer"},{"segment":"Corporate","value":31,"y":31,"color":"#21908C","name":"Corporate","colorv":"Corporate"},{"segment":"Home Office","value":19,"y":19,"color":"#FDE725","name":"Home Office","colorv":"Home Office"}],"type":"pie","name":" sales proportion%","dataLabels":{"enabled":true,"format":"{point.name}: {point.y}%"}}],"xAxis":{"type":"category","title":{"text":"segment"},"categories":null}},"theme":{"chart":{"backgroundColor":"transparent"},"colors":["#7cb5ec","#434348","#90ed7d","#f7a35c","#8085e9","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1"]},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadCSV":"Download CSV","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","downloadXLS":"Download XLS","drillUpText":"◁ Back to {series.name}","exitFullscreen":"Exit from full screen","exportData":{"annotationHeader":"Annotations","categoryDatetimeHeader":"DateTime","categoryHeader":"Category"},"hideData":"Hide data table","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbolMagnitude":1000,"numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"shortWeekdays":["Sat","Sun","Mon","Tue","Wed","Thu","Fri"],"thousandsSep":" ","viewData":"View data table","viewFullscreen":"View in full screen","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  group_by(segment, category) %&gt;% 
+  summarise(n=sum(sales)) %&gt;% 
+  ggplot(aes(x=segment, y = category, fill = n)) +
+  scale_fill_distiller(direction = <span class="hljs-number">1</span>) +
+  geom_tile(color = <span class="hljs-string">"white"</span>) +
+  geom_text(aes(label = paste(round(n,<span class="hljs-number">2</span>))), color = <span class="hljs-string">"black"</span>, size = <span class="hljs-number">4</span>)+
+  labs(title = <span class="hljs-string">"Sales by customer segment and product category"</span>, 
+       x = <span class="hljs-string">"Segment"</span>, 
+       y = <span class="hljs-string">"Category"</span>, 
+       fill = <span class="hljs-string">"Sales ($)"</span> )</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-7-1.png" width="672"></p>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  group_by(segment, sub_category) %&gt;% 
+  summarise(n=sum(sales)) %&gt;% 
+  ggplot(aes(x=segment, y = sub_category, fill = n)) +
+  scale_fill_distiller(direction = <span class="hljs-number">1</span>) +
+  geom_tile(color = <span class="hljs-string">"white"</span>) +
+  geom_text(aes(label = paste(round(n,<span class="hljs-number">2</span>))), color = <span class="hljs-string">"black"</span>, size = <span class="hljs-number">4</span>)+
+  theme_bw()+
+  labs(title = <span class="hljs-string">"Sales by customer segment and product subcategory"</span>,
+       y = <span class="hljs-string">"Subcategory"</span>,
+       x = <span class="hljs-string">"Segment"</span>,
+       fill = <span class="hljs-string">"Sales ($)"</span>)</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-8-1.png" width="672"></p>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  group_by(segment, category) %&gt;% 
+  summarise(n=sum(profit)) %&gt;% 
+  ggplot(aes(x=segment, y = category, fill = n)) +
+  scale_fill_distiller(direction = <span class="hljs-number">1</span>) +
+  geom_tile(color = <span class="hljs-string">"white"</span>) +
+  geom_text(aes(label = paste(round(n,<span class="hljs-number">0</span>))), color = <span class="hljs-string">"black"</span>, size = <span class="hljs-number">4</span>)+
+  theme_bw()+
+  labs(title = <span class="hljs-string">"Profits by customer segment and product category"</span>,
+       x= <span class="hljs-string">"Segment"</span>,
+       y = <span class="hljs-string">"Category"</span>,
+       fill = <span class="hljs-string">"Profits ($)"</span>)</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-9-1.png" width="672"></p>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  group_by(segment, category) %&gt;% 
+  summarise(n=mean(profit)) %&gt;% 
+  ggplot(aes(x = segment, y = category, fill = n)) +
+  scale_fill_distiller(direction = <span class="hljs-number">1</span>)+
+  geom_tile()+
+  geom_text(aes(label = paste(round(n, <span class="hljs-number">0</span>))), color = <span class="hljs-string">"black"</span>, size = <span class="hljs-number">4</span>)+
+  theme_bw()+
+  labs(title = <span class="hljs-string">"Sales by customer segment and product category"</span>,
+       x = <span class="hljs-string">"Segment"</span>,
+       y = <span class="hljs-string">"Category"</span>,
+       fill = <span class="hljs-string">"Profit ($)"</span>)</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-10-1.png" width="672"></p>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  group_by(segment, sub_category) %&gt;% 
+  summarise(n=sum(profit)) %&gt;% 
+  ggplot(aes(x=segment, y = sub_category, fill = n)) +
+  scale_fill_distiller(direction = <span class="hljs-number">1</span>) +
+  geom_tile(color = <span class="hljs-string">"white"</span>) +
+  geom_text(aes(label = paste(round(n,<span class="hljs-number">0</span>))), color = <span class="hljs-string">"black"</span>, size = <span class="hljs-number">4</span>)+
+  theme_bw()+
+  labs(title = <span class="hljs-string">"Profits by customer segment and product subcategory"</span>,
+       x= <span class="hljs-string">"Segment"</span>,
+       y = <span class="hljs-string">"Subcategory"</span>,
+       fill = <span class="hljs-string">"Profits ($)"</span>)</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-11-1.png" width="672"></p>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  group_by(segment, sub_category) %&gt;% 
+  summarise(n=mean(profit)) %&gt;% 
+  ggplot(aes(x=segment, y = sub_category, fill = n)) +
+  scale_fill_distiller(direction = <span class="hljs-number">1</span>) +
+  geom_tile() +
+  geom_text(aes(label = paste(round(n,<span class="hljs-number">0</span>))), color = <span class="hljs-string">"black"</span>, size = <span class="hljs-number">4</span>)+
+  theme_bw()+
+  labs(title = <span class="hljs-string">"Aveage Profits by customer segment and product subcategory"</span>,
+       x= <span class="hljs-string">"Segment"</span>,
+       y = <span class="hljs-string">"Subcategory"</span>,
+       fill = <span class="hljs-string">"Average Profits ($)"</span>)</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-12-1.png" width="672"></p>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  group_by(segment, region) %&gt;% 
+  summarise(n=sum(sales)) %&gt;% 
+  ggplot(aes(x = segment, y = region, fill = n)) +
+  scale_fill_distiller(direction = <span class="hljs-number">1</span>)+
+  geom_tile()+
+  geom_text(aes(label = paste(round(n, <span class="hljs-number">0</span>))), color = <span class="hljs-string">"black"</span>, size = <span class="hljs-number">4</span>)+
+  theme_bw()+
+  labs(title = <span class="hljs-string">"Sales by customer segment and region"</span>,
+       x = <span class="hljs-string">"Segment"</span>,
+       y = <span class="hljs-string">"Region"</span>,
+       fill = <span class="hljs-string">"Sales ($)"</span>)</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-13-1.png" width="672"></p>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  group_by(segment, region) %&gt;% 
+  summarise(n=sum(profit)) %&gt;% 
+  ggplot(aes(x = segment, y = region, fill = n)) +
+  scale_fill_distiller(direction = <span class="hljs-number">1</span>)+
+  geom_tile()+
+  geom_text(aes(label = paste(round(n, <span class="hljs-number">0</span>))), color = <span class="hljs-string">"black"</span>, size = <span class="hljs-number">4</span>)+
+  theme_bw()+
+  labs(title = <span class="hljs-string">"Profit by customer region and product category"</span>,
+       x = <span class="hljs-string">"Segment"</span>,
+       y = <span class="hljs-string">"Region"</span>,
+       fill = <span class="hljs-string">"Profit ($)"</span>)</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-14-1.png" width="672"></p>
+<div id="section-observations" class="section level5">
+<h5>Observations:</h5>
+<ul>
+<li><p>Most sales are to consumers in the East and West regions.
+Consumers in the West were by far the most profitable, while home office
+customers in the South were the least.</p>
+<ul>
+<li>On average, however, home office customers’ technology purchases are
+the most profitable.</li>
+</ul></li>
+<li><p>On average, selling copiers is by far the most profitable good
+sold across each segment, whereas selling tables nets losses across each
+segment.</p></li>
+<li><p>The technology category has the greatest value of sales and
+profits across segments, whereas furniture tends to sell the
+least.</p></li>
+<li><p>Phones and chairs have the highest value of sales in each
+segment, and fasteners are the poorest performing.</p></li>
+<li><p>Phones and copiers are the most profitable in the Consumer
+segment, while Tables and Bookcases tend to lose money.</p></li>
+</ul>
+</div>
+</div>
+<div id="section-regions" class="section level4">
+<h4>Regions</h4>
+<pre class="r"><code class="hljs">agg_by_region &lt;- aggregate(cbind(sales, profit) ~ region, data = Superstore_data, sum)
+agg_by_region &lt;- agg_by_region[order(agg_by_region$profit, decreasing = <span class="hljs-literal">T</span>),] %&gt;% 
+  mutate(sales = round(sales,<span class="hljs-number">2</span>),
+         profit = round(profit, <span class="hljs-number">2</span>))
+DT::datatable(agg_by_region)</code></pre>
+<div id="htmlwidget-8c1e75a1a23acdd4810a" style="width:100%;height:auto;" class="datatables html-widget html-widget-static-bound"><div id="DataTables_Table_3_wrapper" class="dataTables_wrapper no-footer"><div class="dataTables_length" id="DataTables_Table_3_length"><label>Show <select name="DataTables_Table_3_length" aria-controls="DataTables_Table_3" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div><div id="DataTables_Table_3_filter" class="dataTables_filter"><label>Search:<input type="search" class="" placeholder="" aria-controls="DataTables_Table_3"></label></div><table class="display dataTable no-footer" id="DataTables_Table_3" aria-describedby="DataTables_Table_3_info">
+  <thead>
+    <tr><th class="sorting_disabled" rowspan="1" colspan="1" aria-label=" "> </th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_3" rowspan="1" colspan="1" aria-label="region: activate to sort column ascending">region</th><th class="dt-right sorting" tabindex="0" aria-controls="DataTables_Table_3" rowspan="1" colspan="1" aria-label="sales: activate to sort column ascending">sales</th><th class="dt-right sorting" tabindex="0" aria-controls="DataTables_Table_3" rowspan="1" colspan="1" aria-label="profit: activate to sort column ascending">profit</th></tr>
+  </thead><tbody><tr class="odd"><td>4</td><td>West</td><td class=" dt-right">725457.82</td><td class=" dt-right">108418.45</td></tr><tr class="even"><td>2</td><td>East</td><td class=" dt-right">678781.24</td><td class=" dt-right">91522.78</td></tr><tr class="odd"><td>3</td><td>South</td><td class=" dt-right">391721.91</td><td class=" dt-right">46749.43</td></tr><tr class="even"><td>1</td><td>Central</td><td class=" dt-right">501239.89</td><td class=" dt-right">39706.36</td></tr></tbody>
+</table><div class="dataTables_info" id="DataTables_Table_3_info" role="status" aria-live="polite">Showing 1 to 4 of 4 entries</div><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_3_paginate"><a class="paginate_button previous disabled" aria-controls="DataTables_Table_3" data-dt-idx="0" tabindex="-1" id="DataTables_Table_3_previous">Previous</a><span><a class="paginate_button current" aria-controls="DataTables_Table_3" data-dt-idx="1" tabindex="0">1</a></span><a class="paginate_button next disabled" aria-controls="DataTables_Table_3" data-dt-idx="2" tabindex="-1" id="DataTables_Table_3_next">Next</a></div></div></div>
+<script type="application/json" data-for="htmlwidget-8c1e75a1a23acdd4810a">{"x":{"filter":"none","vertical":false,"data":[["4","2","3","1"],["West","East","South","Central"],[725457.82,678781.24,391721.91,501239.89],[108418.45,91522.78,46749.43,39706.36]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>region<\/th>\n      <th>sales<\/th>\n      <th>profit<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  group_by(region) %&gt;% 
+  summarise(value = sum(sales)) %&gt;% 
+  mutate(value = value/sum(value, na.rm = <span class="hljs-literal">T</span>)*<span class="hljs-number">100</span>) %&gt;% 
+  mutate(value = round(value)) %&gt;% 
+  arrange(-value) %&gt;% 
+  hchart(<span class="hljs-string">"pie"</span>,hcaes(x=region,y=value, color=region), name=<span class="hljs-string">" sales proportion%"</span>,dataLabels=list(enabled=<span class="hljs-literal">TRUE</span>,format=<span class="hljs-string">"{point.name}: {point.y}%"</span>))</code></pre>
+<div id="htmlwidget-4e4db17a811af60bba0a" style="width: 672px; height: 480px; overflow: hidden;" class="highchart html-widget html-widget-static-bound" data-highcharts-chart="1"><div id="highcharts-v9hxnmk-6" dir="ltr" class="highcharts-container " style="position: relative; overflow: hidden; width: 672px; height: 480px; text-align: left; line-height: normal; z-index: 0; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); user-select: none; touch-action: manipulation; outline: none;"><svg version="1.1" class="highcharts-root" style="font-family:&quot;Lucida Grande&quot;, &quot;Lucida Sans Unicode&quot;, Arial, Helvetica, sans-serif;font-size:12px;" xmlns="http://www.w3.org/2000/svg" width="672" height="480" viewBox="0 0 672 480"><desc>Created with Highcharts 9.3.1</desc><defs><clippath id="highcharts-v9hxnmk-11-"><rect x="0" y="0" width="652" height="455" fill="none"></rect></clippath><clippath id="highcharts-v9hxnmk-12-"><rect x="10" y="10" width="652" height="455" fill="none"></rect></clippath></defs><rect fill="transparent" class="highcharts-background" x="0" y="0" width="672" height="480" rx="0" ry="0"></rect><rect fill="none" class="highcharts-plot-background" x="10" y="10" width="652" height="455"></rect><g class="highcharts-pane-group" data-z-index="0"></g><rect fill="none" class="highcharts-plot-border" data-z-index="1" x="10" y="10" width="652" height="455"></rect><g class="highcharts-series-group" data-z-index="3"><g class="highcharts-series highcharts-series-0 highcharts-pie-series highcharts-tracker" data-z-index="0.1" opacity="1" transform="translate(10,10) scale(1 1)" clip-path="none"><path fill="#FDE725" d="M 329.95834882984434 10.00000424161368 A 204.5 204.5 0 0 1 516.8099819292836 297.7002443000065 L 330 214.5 A 0 0 0 0 0 330 214.5 Z" transform="translate(0,0)" stroke="#ffffff" stroke-width="1" opacity="1" stroke-linejoin="round" class="highcharts-point highcharts-color-0"></path><path fill="#2C6079" d="M 516.726688293867 297.8870126506821 A 204.5 204.5 0 0 1 196.04924683349745 369.0232853848465 L 330 214.5 A 0 0 0 0 0 330 214.5 Z" transform="translate(0,0)" stroke="#ffffff" stroke-width="1" opacity="1" stroke-linejoin="round" class="highcharts-point highcharts-color-1"></path><path fill="#440154" d="M 195.8947905492375 368.88925739236885 A 204.5 204.5 0 0 1 151.76459591867516 114.2383885429381 L 330 214.5 A 0 0 0 0 0 330 214.5 Z" transform="translate(0,0)" stroke="#ffffff" stroke-width="1" opacity="1" stroke-linejoin="round" class="highcharts-point highcharts-color-2"></path><path fill="#6AAD69" d="M 151.86494663111654 114.06020329936425 A 204.5 204.5 0 0 1 329.71595360266434 10.00019726746882 L 330 214.5 A 0 0 0 0 0 330 214.5 Z" transform="translate(0,0)" stroke="#ffffff" stroke-width="1" opacity="1" stroke-linejoin="round" class="highcharts-point highcharts-color-3"></path></g><g class="highcharts-markers highcharts-series-0 highcharts-pie-series" data-z-index="0.1" opacity="1" transform="translate(10,10) scale(1 1)" clip-path="none"></g></g><text x="336" text-anchor="middle" class="highcharts-title" data-z-index="4" style="color:#333333;font-size:18px;fill:#333333;" y="24"></text><text x="336" text-anchor="middle" class="highcharts-subtitle" data-z-index="4" style="color:#666666;fill:#666666;" y="24"></text><text x="10" text-anchor="start" class="highcharts-caption" data-z-index="4" style="color:#666666;fill:#666666;" y="477"></text><g class="highcharts-data-labels highcharts-series-0 highcharts-pie-series highcharts-tracker" data-z-index="6" opacity="1" transform="translate(10,10) scale(1 1)"><path fill="none" class="highcharts-data-label-connector highcharts-color-0" stroke="#FDE725" stroke-width="1" d="M 531.7344325563616 86.88411914371159 C 526.7344325563616 86.88411914371159 511.63328208295223 96.67979443332007 506.5995652584824 99.94501952985624 L 501.5658484340126 103.21024462639241"></path><path fill="none" class="highcharts-data-label-connector highcharts-color-1" stroke="#2C6079" stroke-width="1" d="M 385.6561792534854 443.46331912216584 C 380.6561792534854 443.46331912216584 376.7678584579087 425.8883095520209 375.4717515260498 420.0299730286393 L 374.1756445941909 414.17163650525765"></path><path fill="none" class="highcharts-data-label-connector highcharts-color-2" stroke="#440154" stroke-width="1" d="M 93.92322741480422 254.42211381690242 C 98.92322741480422 254.42211381690242 116.66046369000046 251.35772981389923 122.57287578173255 250.33626847956484 L 128.48528787346464 249.31480714523045"></path><path fill="none" class="highcharts-data-label-connector highcharts-color-3" stroke="#6AAD69" stroke-width="1" d="M 206.69876852129414 12.027610201732312 C 211.69876852129414 12.027610201732312 220.77946006336964 27.569200889872263 223.80635724406147 32.749731119252246 L 226.8332544247533 37.93026134863223"></path><g class="highcharts-label highcharts-data-label highcharts-data-label-color-0" data-z-index="1" transform="translate(537,77)"><text x="5" data-z-index="1" y="16" style="color:#000000;font-size:11px;font-weight:bold;fill:#000000;"><tspan class="highcharts-text-outline" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2px" stroke-linejoin="round" style="">West: 32%<tspan x="5" y="16">​</tspan></tspan>West: 32%</text></g><g class="highcharts-label highcharts-data-label highcharts-data-label-color-1" data-z-index="1" transform="translate(391,433)"><text x="5" data-z-index="1" y="16" style="color:#000000;font-size:11px;font-weight:bold;fill:#000000;"><tspan class="highcharts-text-outline" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2px" stroke-linejoin="round" style="">East: 30%<tspan x="5" y="16">​</tspan></tspan>East: 30%</text></g><g class="highcharts-label highcharts-data-label highcharts-data-label-color-2" data-z-index="1" transform="translate(8,244)"><text x="5" data-z-index="1" y="16" style="color:#000000;font-size:11px;font-weight:bold;fill:#000000;"><tspan class="highcharts-text-outline" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2px" stroke-linejoin="round" style="">Central: 22%<tspan x="5" y="16">​</tspan></tspan>Central: 22%</text></g><g class="highcharts-label highcharts-data-label highcharts-data-label-color-3" data-z-index="1" transform="translate(130,2)"><text x="5" data-z-index="1" y="16" style="color:#000000;font-size:11px;font-weight:bold;fill:#000000;"><tspan class="highcharts-text-outline" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="2px" stroke-linejoin="round" style="">South: 17%<tspan x="5" y="16">​</tspan></tspan>South: 17%</text></g></g><g class="highcharts-legend highcharts-no-tooltip" data-z-index="7"><rect fill="none" class="highcharts-legend-box" rx="0" ry="0" x="0" y="0" width="8" height="8" visibility="hidden"></rect><g data-z-index="1"><g></g></g></g><g class="highcharts-control-points" data-z-index="99" clip-path="url(#highcharts-v9hxnmk-12-)"></g></svg></div></div>
+<script type="application/json" data-for="htmlwidget-4e4db17a811af60bba0a">{"x":{"hc_opts":{"chart":{"reflow":true},"title":{"text":null},"yAxis":{"title":{"text":"value"},"type":"linear"},"credits":{"enabled":false},"exporting":{"enabled":false},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":false},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"group":"group","data":[{"region":"West","value":32,"y":32,"color":"#FDE725","name":"West","colorv":"West"},{"region":"East","value":30,"y":30,"color":"#2C6079","name":"East","colorv":"East"},{"region":"Central","value":22,"y":22,"color":"#440154","name":"Central","colorv":"Central"},{"region":"South","value":17,"y":17,"color":"#6AAD69","name":"South","colorv":"South"}],"type":"pie","name":" sales proportion%","dataLabels":{"enabled":true,"format":"{point.name}: {point.y}%"}}],"xAxis":{"type":"category","title":{"text":"region"},"categories":null}},"theme":{"chart":{"backgroundColor":"transparent"},"colors":["#7cb5ec","#434348","#90ed7d","#f7a35c","#8085e9","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1"]},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadCSV":"Download CSV","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","downloadXLS":"Download XLS","drillUpText":"◁ Back to {series.name}","exitFullscreen":"Exit from full screen","exportData":{"annotationHeader":"Annotations","categoryDatetimeHeader":"DateTime","categoryHeader":"Category"},"hideData":"Hide data table","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbolMagnitude":1000,"numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"shortWeekdays":["Sat","Sun","Mon","Tue","Wed","Thu","Fri"],"thousandsSep":" ","viewData":"View data table","viewFullscreen":"View in full screen","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+<p>As we can see, customers are pretty evenly distributed across each
+region, but sales tend to be best in the West and East regions.</p>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  group_by(region, category) %&gt;% 
+  summarise(n=sum(sales)) %&gt;% 
+  ggplot(aes(x = region, y = category, fill = n)) +
+  scale_fill_distiller(direction = <span class="hljs-number">1</span>)+
+  geom_tile()+
+  geom_text(aes(label = paste(round(n, <span class="hljs-number">0</span>))), color = <span class="hljs-string">"black"</span>, size = <span class="hljs-number">4</span>)+
+  theme_bw()+
+  labs(title = <span class="hljs-string">"Sales by customer region and product category"</span>,
+       x = <span class="hljs-string">"Region"</span>,
+       y = <span class="hljs-string">"Category"</span>,
+       fill = <span class="hljs-string">"Sales ($)"</span>)</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-17-1.png" width="672"></p>
+<p>Technology is the best seller across across each region except the
+West, where furniture is the best seller. Furniture sells worst in the
+South.</p>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  group_by(region, category) %&gt;% 
+  summarise(n=sum(profit)) %&gt;% 
+  ggplot(aes(x = region, y = category, fill = n)) +
+  scale_fill_distiller(direction = <span class="hljs-number">1</span>)+
+  geom_tile()+
+  geom_text(aes(label = paste(round(n, <span class="hljs-number">0</span>))), color = <span class="hljs-string">"black"</span>, size = <span class="hljs-number">4</span>)+
+  theme_bw()+
+  labs(title = <span class="hljs-string">"Profits by customer region and product category"</span>,
+       x = <span class="hljs-string">"Region"</span>,
+       y = <span class="hljs-string">"Category"</span>,
+       fill = <span class="hljs-string">"Profit ($)"</span>)</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-18-1.png" width="672"></p>
+<p>Office supplies in the West region are the most profitable, whereas
+furniture in the Central region net the Superstore a loss.</p>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  group_by(region, category) %&gt;% 
+  summarise(n=mean(profit)) %&gt;% 
+  ggplot(aes(x = region, y = category, fill = n)) +
+  scale_fill_distiller(direction = <span class="hljs-number">1</span>)+
+  geom_tile()+
+  geom_text(aes(label = paste(round(n, <span class="hljs-number">0</span>))), color = <span class="hljs-string">"black"</span>, size = <span class="hljs-number">4</span>)+
+  theme_bw()+
+  labs(title = <span class="hljs-string">"Average profit by customer region and product category"</span>,
+       x = <span class="hljs-string">"Region"</span>,
+       y = <span class="hljs-string">"Category"</span>,
+       fill = <span class="hljs-string">"Average Profit ($)"</span>)</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-19-1.png" width="672"></p>
+<p>Technology is, on average, the most profitable category of goods
+sold, while furniture is much less profitable.</p>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  group_by(region, sub_category) %&gt;% 
+  summarise(n=sum(sales)) %&gt;% 
+  ggplot(aes(x = region, y = sub_category, fill = n))+
+  scale_fill_distiller(direction = <span class="hljs-number">1</span>)+
+  geom_tile()+
+  geom_text(aes(label = paste(round(n,<span class="hljs-number">0</span>))), color = <span class="hljs-string">"black"</span>, size = <span class="hljs-number">4</span>)+
+  theme_bw()+
+  labs(title = <span class="hljs-string">"Sales by customer region and product subcategory"</span>,
+       x = <span class="hljs-string">"Region"</span>,
+       y = <span class="hljs-string">"Subcategory"</span>,
+       fill = <span class="hljs-string">"Sales ($)"</span>)</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-20-1.png" width="672"></p>
+<p>Sales for chairs in each region tend to do best, whereas sales for
+fasteners tend not to do well.</p>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  group_by(region, sub_category) %&gt;% 
+  summarise(n=sum(profit)) %&gt;% 
+  ggplot(aes(x = region, y = sub_category, fill = n)) +
+  scale_fill_distiller(direction = <span class="hljs-number">1</span>)+
+  geom_tile()+
+  geom_text(aes(label = paste(round(n, <span class="hljs-number">0</span>))), color = <span class="hljs-string">"black"</span>, size = <span class="hljs-number">4</span>)+
+  theme_bw()+
+  labs(title = <span class="hljs-string">"Profits by customer region and product subcategory"</span>,
+       x = <span class="hljs-string">"Region"</span>,
+       y = <span class="hljs-string">"Category"</span>,
+       fill = <span class="hljs-string">"Profits ($)"</span>)</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-21-1.png" width="672"></p>
+<p>Interestingly, tables lose money in each region except the West.
+Copiers, Phones, and Chairs are the most profitable products.</p>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  group_by(region, sub_category) %&gt;% 
+  summarise(n=mean(profit)) %&gt;% 
+  ggplot(aes(x = region, y = sub_category, fill = n)) +
+  scale_fill_distiller(direction = <span class="hljs-number">1</span>)+
+  geom_tile()+
+  geom_text(aes(label = paste(round(n, <span class="hljs-number">0</span>))), color = <span class="hljs-string">"black"</span>, size = <span class="hljs-number">4</span>)+
+  theme_bw()+
+  labs(title = <span class="hljs-string">"Average profits by customer region and product category"</span>,
+       x = <span class="hljs-string">"Region"</span>,
+       y = <span class="hljs-string">"Subcategory"</span>,
+       fill = <span class="hljs-string">"Average Profit ($)"</span>)</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-22-1.png" width="672"></p>
+<p>On average, copiers are the most profitable good sold across each
+region. Machines are only profitable in the East, and net losses in each
+other region.</p>
+<div id="section-observations-1" class="section level5">
+<h5>Observations:</h5>
+<ul>
+<li><p>Most sales and profits are in the East and West.</p></li>
+<li><p>Technology, mostly phones, tend to outperform other product
+categories and subcategories.</p></li>
+<li><p>Copiers are the most profitable, on average, across each region.
+Tables tend to yield losses in each region.</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="section-sales-vs-profits" class="section level3">
+<h3>Sales vs Profits</h3>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  ggplot(aes(x = sales, y = profit)) +
+  geom_jitter()+
+  geom_hline(yintercept = <span class="hljs-number">0</span>, color = <span class="hljs-string">"red"</span>)+
+  theme_bw()+
+  labs(title = <span class="hljs-string">"Sales vs Profits"</span>,
+       x = <span class="hljs-string">"Sales"</span>,
+       y = <span class="hljs-string">"Profits"</span>)</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-23-1.png" width="672"></p>
+<p>There is generally a positive relationship between sales and profits,
+though the relationship tends to hover around a minor, positive
+relationship.</p>
+</div>
+<div id="section-discounts" class="section level3">
+<h3>Discounts</h3>
+<p>To see the impact of discounts on sales and profits, we’ll cut the
+Discount variable into ranges.</p>
+<pre class="r"><code class="hljs">Superstore_data&lt;- Superstore_data %&gt;% 
+  mutate(discount = cut_width(discount, <span class="hljs-number">0.1</span>, boundary = <span class="hljs-number">0</span>))</code></pre>
+<p>Now that the discount variable has been broken down, we’ll see its
+impact on each category and subcategory.</p>
+<div id="section-technology" class="section level4">
+<h4>Technology</h4>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  filter(category == <span class="hljs-string">"Technology"</span>) %&gt;% 
+  ggplot(aes(x = sales, y = profit, color = discount))+
+  geom_point()+
+  geom_hline(yintercept = <span class="hljs-number">0</span>, color = <span class="hljs-string">"red"</span>)+
+  scale_x_continuous(<span class="hljs-string">"Sales"</span>, labels = scales::dollar)+
+  scale_y_continuous(<span class="hljs-string">"Profits"</span>, labels = scales::dollar)+
+  labs(title = <span class="hljs-string">"Technology: Sales vs Profits by product subcategory"</span>,
+       color = <span class="hljs-string">"Discount rate"</span>,
+       x = <span class="hljs-string">"Sales"</span>,
+       y = <span class="hljs-string">"Profit"</span>)+
+  theme(axis.text.x = element_text(angle = <span class="hljs-number">45</span>))+
+  facet_wrap(~ sub_category)</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-25-1.png" width="672"></p>
+<p>Copiers, accessories, and phones tend to have a positive sales-profit
+ratio, regardless of the discount offered. However, when the discount
+offered on machines is greater than 45%, there is a negative
+relationship between sales and profits.</p>
+</div>
+<div id="section-office-supplies" class="section level4">
+<h4>Office Supplies</h4>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  filter(category == <span class="hljs-string">"Office Supplies"</span>) %&gt;% 
+  ggplot(aes(x = sales, y = profit, color = discount))+
+  geom_point()+
+  geom_hline(yintercept = <span class="hljs-number">0</span>, color = <span class="hljs-string">"red"</span>)+
+  scale_x_continuous(<span class="hljs-string">"Sales"</span>, labels = scales::dollar)+
+  scale_y_continuous(<span class="hljs-string">"Profits"</span>, labels = scales::dollar)+
+  labs(title = <span class="hljs-string">"Office Supplies: Sales vs Profits by product subcategory"</span>,
+       color = <span class="hljs-string">"Discount rate"</span>,
+       x = <span class="hljs-string">"Sales"</span>,
+       y = <span class="hljs-string">"Profit"</span>)+
+  theme(axis.text.x = element_text(angle = <span class="hljs-number">45</span>))+
+  facet_wrap(~ sub_category)</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-26-1.png" width="672"></p>
+<p>When the discount offered stays at or below 30%, the sales-profit
+ratio stays positive. Binders are the most sensitive to discounts.</p>
+</div>
+<div id="section-furniture" class="section level4">
+<h4>Furniture</h4>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  filter(category == <span class="hljs-string">"Furniture"</span>) %&gt;% 
+  ggplot(aes(x = sales, y = profit, color = discount))+
+  geom_point()+
+  geom_hline(yintercept = <span class="hljs-number">0</span>, color = <span class="hljs-string">"red"</span>)+
+  scale_x_continuous(<span class="hljs-string">"Sales"</span>, labels = scales::dollar)+
+  scale_y_continuous(<span class="hljs-string">"Profits"</span>, labels = scales::dollar)+
+  labs(title = <span class="hljs-string">"Furniture: Sales vs Profits by product subcategory"</span>,
+       color = <span class="hljs-string">"Discount rate"</span>,
+       x = <span class="hljs-string">"Sales"</span>,
+       y = <span class="hljs-string">"Profits"</span>)+
+  theme(axis.text.x = element_text(angle = <span class="hljs-number">45</span>))+
+  facet_wrap(~ sub_category)</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-27-1.png" width="672"></p>
+<p>Furniture tends to retain a positive sales-profit ratio only if the
+discount offered to customers is no more than 15%.</p>
+</div>
+<div id="section-discounts-vs-profits" class="section level4">
+<h4>Discounts vs Profits</h4>
+<p>Now we’ll look at how discounts affect profits across each product
+subcategory.</p>
+<pre class="r"><code class="hljs">margins &lt;- Superstore_data %&gt;% 
+  group_by(sub_category, discount) %&gt;% 
+  summarise(n= sum(mean(profit))) %&gt;% 
+  spread(discount, n, <span class="hljs-literal">NA</span>)
+profit_margins &lt;- margins 
+<span class="hljs-keyword">for</span> (i <span class="hljs-keyword">in</span> <span class="hljs-number">3</span>:<span class="hljs-number">7</span>) {
+  profit_margins[,i-<span class="hljs-number">1</span>] = (margins[,i]-abs(margins[,i-<span class="hljs-number">1</span>]))/abs(margins[,i-<span class="hljs-number">1</span>])
+}
+DT::datatable(profit_margins)</code></pre>
+<div id="htmlwidget-134442cba9cb6c1215ae" style="width:100%;height:auto;" class="datatables html-widget html-widget-static-bound"><div id="DataTables_Table_4_wrapper" class="dataTables_wrapper no-footer"><div class="dataTables_length" id="DataTables_Table_4_length"><label>Show <select name="DataTables_Table_4_length" aria-controls="DataTables_Table_4" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div><div id="DataTables_Table_4_filter" class="dataTables_filter"><label>Search:<input type="search" class="" placeholder="" aria-controls="DataTables_Table_4"></label></div><table class="display dataTable no-footer" id="DataTables_Table_4" aria-describedby="DataTables_Table_4_info">
+  <thead>
+    <tr><th class="sorting_disabled" rowspan="1" colspan="1" aria-label=" "> </th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_4" rowspan="1" colspan="1" aria-label="sub_category: activate to sort column ascending">sub_category</th><th class="dt-right sorting" tabindex="0" aria-controls="DataTables_Table_4" rowspan="1" colspan="1" aria-label="[0,0.1]: activate to sort column ascending">[0,0.1]</th><th class="dt-right sorting" tabindex="0" aria-controls="DataTables_Table_4" rowspan="1" colspan="1" aria-label="(0.1,0.2]: activate to sort column ascending">(0.1,0.2]</th><th class="dt-right sorting" tabindex="0" aria-controls="DataTables_Table_4" rowspan="1" colspan="1" aria-label="(0.2,0.3]: activate to sort column ascending">(0.2,0.3]</th><th class="dt-right sorting" tabindex="0" aria-controls="DataTables_Table_4" rowspan="1" colspan="1" aria-label="(0.3,0.4]: activate to sort column ascending">(0.3,0.4]</th><th class="dt-right sorting" tabindex="0" aria-controls="DataTables_Table_4" rowspan="1" colspan="1" aria-label="(0.4,0.5]: activate to sort column ascending">(0.4,0.5]</th><th class="dt-right sorting" tabindex="0" aria-controls="DataTables_Table_4" rowspan="1" colspan="1" aria-label="(0.5,0.6]: activate to sort column ascending">(0.5,0.6]</th><th class="dt-right sorting" tabindex="0" aria-controls="DataTables_Table_4" rowspan="1" colspan="1" aria-label="(0.6,0.7]: activate to sort column ascending">(0.6,0.7]</th><th class="dt-right sorting" tabindex="0" aria-controls="DataTables_Table_4" rowspan="1" colspan="1" aria-label="(0.7,0.8]: activate to sort column ascending">(0.7,0.8]</th></tr>
+  </thead><tbody><tr class="odd"><td>1</td><td>Accessories</td><td class=" dt-right">-0.708152840474193</td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td></tr><tr class="even"><td>2</td><td>Appliances</td><td class=" dt-right">-0.736269596403507</td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right">-128.800614925373</td></tr><tr class="odd"><td>3</td><td>Art</td><td class=" dt-right">-0.643699597701182</td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td></tr><tr class="even"><td>4</td><td>Binders</td><td class=" dt-right">-0.559918217793107</td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right">-43.6871010526316</td><td class=" dt-right">-94.0317510729614</td></tr><tr class="odd"><td>5</td><td>Bookcases</td><td class=" dt-right">-0.843858685354524</td><td class=" dt-right">-4.51569772758676</td><td class=" dt-right">-2.59318260255238</td><td class=" dt-right">-3.66974066361799</td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right">-259.662626666667</td><td class=" dt-right"></td></tr><tr class="even"><td>6</td><td>Chairs</td><td class=" dt-right">-0.876713917328775</td><td class=" dt-right">-3.48880673296819</td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td></tr><tr class="odd"><td>7</td><td>Copiers</td><td class=" dt-right">-0.701019607213314</td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td></tr><tr class="even"><td>8</td><td>Envelopes</td><td class=" dt-right">-0.404999908669792</td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td></tr><tr class="odd"><td>9</td><td>Fasteners</td><td class=" dt-right">-0.344383907520055</td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td></tr><tr class="even"><td>10</td><td>Furnishings</td><td class=" dt-right">-0.705387366455787</td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right"></td><td class=" dt-right">-43.0772115942029</td><td class=" dt-right"></td><td class=" dt-right"></td></tr></tbody>
+</table><div class="dataTables_info" id="DataTables_Table_4_info" role="status" aria-live="polite">Showing 1 to 10 of 17 entries</div><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_4_paginate"><a class="paginate_button previous disabled" aria-controls="DataTables_Table_4" data-dt-idx="0" tabindex="-1" id="DataTables_Table_4_previous">Previous</a><span><a class="paginate_button current" aria-controls="DataTables_Table_4" data-dt-idx="1" tabindex="0">1</a><a class="paginate_button " aria-controls="DataTables_Table_4" data-dt-idx="2" tabindex="0">2</a></span><a class="paginate_button next" aria-controls="DataTables_Table_4" data-dt-idx="3" tabindex="0" id="DataTables_Table_4_next">Next</a></div></div></div>
+<script type="application/json" data-for="htmlwidget-134442cba9cb6c1215ae">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17"],["Accessories","Appliances","Art","Binders","Bookcases","Chairs","Copiers","Envelopes","Fasteners","Furnishings","Labels","Machines","Paper","Phones","Storage","Supplies","Tables"],[-0.708152840474193,-0.736269596403507,-0.643699597701182,-0.559918217793107,-0.843858685354524,-0.876713917328775,-0.701019607213314,-0.404999908669792,-0.344383907520055,-0.705387366455787,-0.513943140085606,-0.822301787736395,-0.424615566424196,-0.680914498299504,-1.27918435712226,-3.71180830112461,-1.02318669145355],[null,null,null,null,-4.51569772758676,-3.48880673296819,null,null,null,null,null,-0.593287206975716,null,null,null,null,-15.7366590020139],[null,null,null,null,-2.59318260255238,null,null,null,null,null,null,-4.14596544283745,null,null,null,null,-4.42557421454654],[null,null,null,null,-3.66974066361799,null,null,null,null,null,null,-4.10160626291993,null,null,null,null,-2.09506966765914],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,-43.0772115942029,null,null,null,null,null,null,null],[null,null,null,-43.6871010526316,-259.662626666667,null,null,null,null,null,null,-851.274743478261,null,null,null,null,null],[null,-128.800614925373,null,-94.0317510729614,null,null,null,null,null,null,null,null,null,null,null,null,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>sub_category<\/th>\n      <th>[0,0.1]<\/th>\n      <th>(0.1,0.2]<\/th>\n      <th>(0.2,0.3]<\/th>\n      <th>(0.3,0.4]<\/th>\n      <th>(0.4,0.5]<\/th>\n      <th>(0.5,0.6]<\/th>\n      <th>(0.6,0.7]<\/th>\n      <th>(0.7,0.8]<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code class="hljs">Superstore_data%&gt;%
+  group_by(sub_category, discount) %&gt;% 
+  summarise(n= sum(mean(profit))) %&gt;% 
+  ggplot(aes(x = discount, y = n))+
+  geom_point(stat = <span class="hljs-string">"identity"</span>, show.legend = <span class="hljs-literal">F</span>)+
+  geom_line(aes(group = sub_category))+
+  geom_hline(yintercept = <span class="hljs-number">0</span>, color = <span class="hljs-string">"red"</span>)+
+  scale_y_continuous(<span class="hljs-string">"Profits"</span>, labels = scales::dollar)+
+  facet_wrap(~sub_category, ncol = <span class="hljs-number">3</span>)+
+  labs(title = <span class="hljs-string">"Discount vs Profit change across product sub-categories"</span>,
+       x = <span class="hljs-string">"Discount offered"</span>)+
+  theme(axis.text.x = element_text(angle = <span class="hljs-number">90</span>))</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-29-1.png" width="672"></p>
+<pre class="r"><code class="hljs">Superstore_data%&gt;%
+  group_by(sub_category, discount) %&gt;% 
+  summarise(n= (mean(margin))) %&gt;% 
+  ggplot(aes(x = discount, y = n))+
+  geom_point(stat = <span class="hljs-string">"identity"</span>, show.legend = <span class="hljs-literal">F</span>)+
+  geom_line(aes(group = sub_category))+
+  geom_hline(yintercept = <span class="hljs-number">0</span>, color = <span class="hljs-string">"red"</span>)+
+  scale_y_continuous(<span class="hljs-string">"Profit Margin"</span>, labels = scales::percent)+
+  facet_wrap(~sub_category, ncol = <span class="hljs-number">3</span>)+
+  labs(title = <span class="hljs-string">"Discount vs Profit Margin change across product sub-categories"</span>,
+       x = <span class="hljs-string">"Discount offered"</span>,
+       color = <span class="hljs-string">"Product Subcategory"</span>)+
+  theme(axis.text.x = element_text(angle = <span class="hljs-number">90</span>))</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-30-1.png" width="672"></p>
+<div id="section-observation" class="section level5">
+<h5>Observation:</h5>
+<ul>
+<li>The margins of supplies were most greatly affected in the 0-15%
+discount range. Margins tend to worsen as the discount offered
+increases.</li>
+<li>The profits of copiers and machines are most sensitive to discount
+increases.</li>
+<li>Profit margins significantly decrease as discount rates increase.
+Binders, appliances, and bookcases see the largest decreases in profit
+margin.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="section-time-of-year" class="section level3">
+<h3>Time of year</h3>
+<p>Now we’ll investigate whether the month of customers’ orders affect
+sales, profits, and margins.</p>
+<pre class="r"><code class="hljs">Superstore_data&lt;- Superstore_data %&gt;% 
+  mutate(month = month(order_date, label = <span class="hljs-literal">T</span>))</code></pre>
+<pre class="r"><code class="hljs">agg_by_month &lt;- aggregate(cbind(sales, profit) ~ month, data = Superstore_data, sum)
+agg_by_month &lt;- agg_by_month[order(agg_by_month$profit, decreasing = <span class="hljs-literal">T</span>),] %&gt;% 
+  mutate(sales = round(sales, <span class="hljs-number">2</span>),
+         profit = round(profit, <span class="hljs-number">2</span>))
+DT::datatable(agg_by_month)</code></pre>
+<div id="htmlwidget-98aa6b415d0d5d00dc80" style="width:100%;height:auto;" class="datatables html-widget html-widget-static-bound"><div id="DataTables_Table_5_wrapper" class="dataTables_wrapper no-footer"><div class="dataTables_length" id="DataTables_Table_5_length"><label>Show <select name="DataTables_Table_5_length" aria-controls="DataTables_Table_5" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div><div id="DataTables_Table_5_filter" class="dataTables_filter"><label>Search:<input type="search" class="" placeholder="" aria-controls="DataTables_Table_5"></label></div><table class="display dataTable no-footer" id="DataTables_Table_5" aria-describedby="DataTables_Table_5_info">
+  <thead>
+    <tr><th class="sorting_disabled" rowspan="1" colspan="1" aria-label=" "> </th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_5" rowspan="1" colspan="1" aria-label="month: activate to sort column ascending">month</th><th class="dt-right sorting" tabindex="0" aria-controls="DataTables_Table_5" rowspan="1" colspan="1" aria-label="sales: activate to sort column ascending">sales</th><th class="dt-right sorting" tabindex="0" aria-controls="DataTables_Table_5" rowspan="1" colspan="1" aria-label="profit: activate to sort column ascending">profit</th></tr>
+  </thead><tbody><tr class="odd"><td>12</td><td>Dec</td><td class=" dt-right">325293.5</td><td class=" dt-right">43369.19</td></tr><tr class="even"><td>9</td><td>Sep</td><td class=" dt-right">307649.95</td><td class=" dt-right">36857.48</td></tr><tr class="odd"><td>11</td><td>Nov</td><td class=" dt-right">352461.07</td><td class=" dt-right">35468.43</td></tr><tr class="even"><td>10</td><td>Oct</td><td class=" dt-right">200322.98</td><td class=" dt-right">31784.04</td></tr><tr class="odd"><td>3</td><td>Mar</td><td class=" dt-right">205005.49</td><td class=" dt-right">28594.69</td></tr><tr class="even"><td>5</td><td>May</td><td class=" dt-right">155028.81</td><td class=" dt-right">22411.31</td></tr><tr class="odd"><td>8</td><td>Aug</td><td class=" dt-right">159044.06</td><td class=" dt-right">21776.94</td></tr><tr class="even"><td>6</td><td>Jun</td><td class=" dt-right">152718.68</td><td class=" dt-right">21285.8</td></tr><tr class="odd"><td>7</td><td>Jul</td><td class=" dt-right">147238.1</td><td class=" dt-right">13832.66</td></tr><tr class="even"><td>4</td><td>Apr</td><td class=" dt-right">137762.13</td><td class=" dt-right">11587.44</td></tr></tbody>
+</table><div class="dataTables_info" id="DataTables_Table_5_info" role="status" aria-live="polite">Showing 1 to 10 of 12 entries</div><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_5_paginate"><a class="paginate_button previous disabled" aria-controls="DataTables_Table_5" data-dt-idx="0" tabindex="-1" id="DataTables_Table_5_previous">Previous</a><span><a class="paginate_button current" aria-controls="DataTables_Table_5" data-dt-idx="1" tabindex="0">1</a><a class="paginate_button " aria-controls="DataTables_Table_5" data-dt-idx="2" tabindex="0">2</a></span><a class="paginate_button next" aria-controls="DataTables_Table_5" data-dt-idx="3" tabindex="0" id="DataTables_Table_5_next">Next</a></div></div></div>
+<script type="application/json" data-for="htmlwidget-98aa6b415d0d5d00dc80">{"x":{"filter":"none","vertical":false,"data":[["12","9","11","10","3","5","8","6","7","4","2","1"],["Dec","Sep","Nov","Oct","Mar","May","Aug","Jun","Jul","Apr","Feb","Jan"],[325293.5,307649.95,352461.07,200322.98,205005.49,155028.81,159044.06,152718.68,147238.1,137762.13,59751.25,94924.84],[43369.19,36857.48,35468.43,31784.04,28594.69,22411.31,21776.94,21285.8,13832.66,11587.44,10294.61,9134.45]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>month<\/th>\n      <th>sales<\/th>\n      <th>profit<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<div id="section-category" class="section level4">
+<h4>Category</h4>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  group_by(month, category) %&gt;% 
+  summarise(n = sum(sales)) %&gt;% 
+  ggplot(aes(x = category, y = month, fill = n))+
+  scale_fill_distiller(direction = <span class="hljs-number">1</span>)+
+  geom_tile()+
+  geom_text(aes(label = paste(round(n, <span class="hljs-number">0</span>))), color = <span class="hljs-string">"black"</span>, size = <span class="hljs-number">4</span>)+
+  labs(title = <span class="hljs-string">"Sales totals per month by Product Category"</span>,
+       x = <span class="hljs-string">"Category"</span>,
+       y = <span class="hljs-string">"Month"</span>,
+       fill = <span class="hljs-string">"Sales ($)"</span>)</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-33-1.png" width="672"></p>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  group_by(month, category) %&gt;% 
+  summarise(n = sum(profit)) %&gt;% 
+  ggplot(aes(x = category, y = month, fill = n))+
+  scale_fill_distiller(direction = <span class="hljs-number">1</span>)+
+  geom_tile()+
+  geom_text(aes(label = paste(round(n, <span class="hljs-number">0</span>))), color = <span class="hljs-string">"black"</span>, size = <span class="hljs-number">4</span>)+
+  labs(title = <span class="hljs-string">"Profit totals per month by Product Category"</span>,
+       x = <span class="hljs-string">"Category"</span>,
+       y = <span class="hljs-string">"Month"</span>,
+       fill = <span class="hljs-string">"Profit ($)"</span>)</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-34-1.png" width="672"></p>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  group_by(month, category) %&gt;% 
+  summarise(n = mean(profit)) %&gt;% 
+  ggplot(aes(x = category, y = month, fill = n))+
+  scale_fill_distiller(direction = <span class="hljs-number">1</span>)+
+  geom_tile()+
+  geom_text(aes(label = paste(round(n, <span class="hljs-number">0</span>))), color = <span class="hljs-string">"black"</span>, size = <span class="hljs-number">4</span>)+
+  labs(title = <span class="hljs-string">"Average Profit per month by Product Category"</span>,
+       x = <span class="hljs-string">"Category"</span>,
+       y = <span class="hljs-string">"Month"</span>,
+       fill = <span class="hljs-string">"Average Profit ($)"</span>)</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-35-1.png" width="672"></p>
+<div id="section-observations-2" class="section level5">
+<h5>Observations:</h5>
+<ul>
+<li><p>Sales for technology in November and furniture in December are
+highest, while furniture sales are lowest in February.</p></li>
+<li><p>Items tend to become more profitable as the year progresses,
+likely due to customers saving money after the holiday season.</p>
+<ul>
+<li>Technology profits soared in March and October</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="section-region" class="section level4">
+<h4>Region</h4>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  group_by(month, region) %&gt;% 
+  summarise(n = sum(sales)) %&gt;% 
+  ggplot(aes(x = region, y = month, fill = n))+
+  scale_fill_distiller(direction = <span class="hljs-number">1</span>)+
+  geom_tile()+
+  geom_text(aes(label = paste(round(n, <span class="hljs-number">0</span>))), color = <span class="hljs-string">"black"</span>, size = <span class="hljs-number">4</span>)+
+  labs(title = <span class="hljs-string">"Sales totals per month by Region"</span>,
+       x = <span class="hljs-string">"Region"</span>,
+       y = <span class="hljs-string">"Month"</span>,
+       fill = <span class="hljs-string">"Sales ($)"</span>)</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-36-1.png" width="672"></p>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  group_by(month, region) %&gt;% 
+  summarise(n = sum(profit)) %&gt;% 
+  ggplot(aes(x = region, y = month, fill = n))+
+  scale_fill_distiller(direction = <span class="hljs-number">1</span>)+
+  geom_tile()+
+  geom_text(aes(label = paste(round(n, <span class="hljs-number">0</span>))), color = <span class="hljs-string">"black"</span>, size = <span class="hljs-number">4</span>)+
+  labs(title = <span class="hljs-string">"Profit totals per month by Region"</span>,
+       x = <span class="hljs-string">"Region"</span>,
+       y = <span class="hljs-string">"Month"</span>,
+       fill = <span class="hljs-string">"Profit ($)"</span>)</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-37-1.png" width="672"></p>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  group_by(month, region) %&gt;% 
+  summarise(n = mean(profit)) %&gt;% 
+  ggplot(aes(x = region, y = month, fill = n))+
+  scale_fill_distiller(direction = <span class="hljs-number">1</span>)+
+  geom_tile()+
+  geom_text(aes(label = paste(round(n, <span class="hljs-number">0</span>))), color = <span class="hljs-string">"black"</span>, size = <span class="hljs-number">4</span>)+
+  labs(title = <span class="hljs-string">"Average Profits per month by Region"</span>,
+       x = <span class="hljs-string">"Region"</span>,
+       y = <span class="hljs-string">"Month"</span>,
+       fill = <span class="hljs-string">"Average Profit ($)"</span>)</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-38-1.png" width="672"></p>
+<div id="section-observations-3" class="section level5">
+<h5>Observations:</h5>
+<ul>
+<li><p>November in the East outsells all regions in each month. February
+in the Central region is the most under-performing.</p></li>
+<li><p>March in the West and November in the East are the most
+profitable months across each region. July in the Central region nets a
+loss</p></li>
+<li><p>October tends to be a profitable month in the Central and East
+regions, but not as much in the South or West. March in the South is the
+most profitable month across each region.</p></li>
+</ul>
+</div>
+</div>
+<div id="section-segments-1" class="section level4">
+<h4>Segments</h4>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  group_by(month, segment) %&gt;% 
+  summarise(n = sum(sales)) %&gt;% 
+  ggplot(aes(x = segment, y = month, fill = n))+
+  scale_fill_distiller(direction = <span class="hljs-number">1</span>)+
+  geom_tile()+
+  geom_text(aes(label = paste(round(n, <span class="hljs-number">0</span>))), color = <span class="hljs-string">"black"</span>, size = <span class="hljs-number">4</span>)+
+  labs(title = <span class="hljs-string">"Sales totals per month by Segment"</span>,
+       x = <span class="hljs-string">"Segment"</span>,
+       y = <span class="hljs-string">"Month"</span>,
+       fill = <span class="hljs-string">"Sales ($)"</span>)</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-39-1.png" width="672"></p>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  group_by(month, segment) %&gt;% 
+  summarise(n = sum(profit)) %&gt;% 
+  ggplot(aes(x = segment, y = month, fill = n))+
+  scale_fill_distiller(direction = <span class="hljs-number">1</span>)+
+  geom_tile()+
+  geom_text(aes(label = paste(round(n, <span class="hljs-number">0</span>))), color = <span class="hljs-string">"black"</span>, size = <span class="hljs-number">4</span>)+
+  labs(title = <span class="hljs-string">"Profit totals per month by Segment"</span>,
+       x = <span class="hljs-string">"Segment"</span>,
+       y = <span class="hljs-string">"Month"</span>,
+       fill = <span class="hljs-string">"Profits ($)"</span>)</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-40-1.png" width="672"></p>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  group_by(month, segment) %&gt;% 
+  summarise(n = mean(profit)) %&gt;% 
+  ggplot(aes(x = segment, y = month, fill = n))+
+  scale_fill_distiller(direction = <span class="hljs-number">1</span>)+
+  geom_tile()+
+  geom_text(aes(label = paste(round(n, <span class="hljs-number">0</span>))), color = <span class="hljs-string">"black"</span>, size = <span class="hljs-number">4</span>)+
+  labs(title = <span class="hljs-string">"Average Profitss per month by Segment"</span>,
+       x = <span class="hljs-string">"Segment"</span>,
+       y = <span class="hljs-string">"Month"</span>,
+       fill = <span class="hljs-string">"Average Profit ($)"</span>)</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-41-1.png" width="672"></p>
+<div id="section-observation-1" class="section level5">
+<h5>Observation:</h5>
+<ul>
+<li><p>Consumers out-purchase all other customer segments in September,
+November and December.</p></li>
+<li><p>Total profits for consumers are best in September and
+December.</p></li>
+<li><p>On average, home office customers are the most profitable in
+January and October, whereas they are least profitable across segments
+and months in April.</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="section-shipping" class="section level3">
+<h3>Shipping</h3>
+<p>First we’ll look at shipping mode and its associated turnaround
+time.</p>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  ggplot(aes(x = reorder(ship_mode, turnaround, median), turnaround))+
+  geom_boxplot()+
+  scale_y_continuous()+
+  labs(title = <span class="hljs-string">"Shipping Mode and Order Turnaround Time"</span>,
+       x = <span class="hljs-string">"Shipping Mode"</span>,
+       y = <span class="hljs-string">"Turnaround Time (days)"</span>)</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-42-1.png" width="672"></p>
+<p>Now we’ll look at differences across market segments and shipping
+mode preferences.</p>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  group_by(segment) %&gt;% 
+  ggplot(aes(x = segment, fill = ship_mode))+
+  geom_bar(position = <span class="hljs-string">'fill'</span>)+
+  coord_flip()+
+  labs(title = <span class="hljs-string">"Market Segment vs Shipping Mode Preference"</span>,
+       y = <span class="hljs-string">"Proportion of customer base"</span>,
+       x = <span class="hljs-string">"Customer Segment"</span>,
+       fill = <span class="hljs-string">"Ship mode"</span>)</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-43-1.png" width="672"></p>
+<p>As we can see, customers tend to opt for standard class shipping,
+regardless of customer segment.</p>
+<p>Now we’ll look for differences across product subcategories and
+shipping mode preferences.</p>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  group_by(sub_category) %&gt;% 
+  ggplot(aes(x = sub_category, fill = ship_mode))+
+  geom_bar(position = <span class="hljs-string">'fill'</span>)+
+  coord_flip()+
+  labs(title = <span class="hljs-string">"Product Subcategory vs Shipping Mode Preferences"</span>,
+       x = <span class="hljs-string">"Product Subcategory"</span>,
+       y = <span class="hljs-string">"Proportion of Products Sold"</span>,
+       fill = <span class="hljs-string">"Ship mode"</span>)</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-44-1.png" width="672"></p>
+<p>Product subcategories also do not seem to affect shipping mode
+preferences, as customers still predominately opt for standard class
+shipping.</p>
+</div>
+<div id="section-statistical-and-predictive-analysis" class="section level3">
+<h3>Statistical and predictive analysis</h3>
+<pre class="r"><code class="hljs">summary(lm(profit ~ discount * sub_category * sales, data = Superstore_data))</code></pre>
+<pre><code class="hljs">## 
+## Call:
+## lm(formula = profit ~ discount * sub_category * sales, data = Superstore_data)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2674.96    -2.06     0.19     2.42   953.60 
+## 
+## Coefficients: (168 not defined because of singularities)
+##                                                   Estimate Std. Error  t value
+## (Intercept)                                      8.009e-01  2.612e+00    0.307
+## discount(0.1,0.2]                               -8.981e+00  4.232e+00   -2.122
+## discount(0.2,0.3]                               -1.297e+01  1.492e+01   -0.869
+## discount(0.3,0.4]                                9.219e+00  1.208e+01    0.763
+## discount(0.4,0.5]                               -2.420e+01  1.562e+01   -1.549
+## discount(0.5,0.6]                                4.771e+00  5.424e+00    0.880
+## discount(0.6,0.7]                               -9.223e-01  1.676e+01   -0.055
+## discount(0.7,0.8]                                2.225e+00  4.163e+00    0.534
+## sub_categoryAppliances                          -1.254e+00  4.229e+00   -0.296
+## sub_categoryArt                                 -3.794e-01  3.676e+00   -0.103
+## sub_categoryBinders                             -3.172e+00  3.734e+00   -0.850
+## sub_categoryBookcases                           -5.551e+00  8.224e+00   -0.675
+## sub_categoryChairs                              -4.941e+00  5.320e+00   -0.929
+## sub_categoryCopiers                             -6.937e+01  1.303e+01   -5.324
+## sub_categoryEnvelopes                           -3.599e-01  5.682e+00   -0.063
+## sub_categoryFasteners                            3.644e-01  6.826e+00    0.053
+## sub_categoryFurnishings                          3.628e+00  3.531e+00    1.027
+## sub_categoryLabels                              -1.029e+00  4.299e+00   -0.239
+## sub_categoryMachines                             1.312e+02  1.206e+01   10.873
+## sub_categoryPaper                               -1.013e+00  3.305e+00   -0.306
+## sub_categoryPhones                              -2.109e-01  4.263e+00   -0.049
+## sub_categoryStorage                             -9.464e+00  3.689e+00   -2.565
+## sub_categorySupplies                             4.970e+00  5.233e+00    0.950
+## sub_categoryTables                               2.115e+01  9.857e+00    2.145
+## sales                                            2.949e-01  5.692e-03   51.821
+## discount(0.1,0.2]:sub_categoryAppliances         6.777e+00  7.635e+00    0.888
+## discount(0.2,0.3]:sub_categoryAppliances                NA         NA       NA
+## discount(0.3,0.4]:sub_categoryAppliances                NA         NA       NA
+## discount(0.4,0.5]:sub_categoryAppliances                NA         NA       NA
+## discount(0.5,0.6]:sub_categoryAppliances                NA         NA       NA
+## discount(0.6,0.7]:sub_categoryAppliances                NA         NA       NA
+## discount(0.7,0.8]:sub_categoryAppliances        -6.831e-01  8.834e+00   -0.077
+## discount(0.1,0.2]:sub_categoryArt                9.277e+00  5.791e+00    1.602
+## discount(0.2,0.3]:sub_categoryArt                       NA         NA       NA
+## discount(0.3,0.4]:sub_categoryArt                       NA         NA       NA
+## discount(0.4,0.5]:sub_categoryArt                       NA         NA       NA
+## discount(0.5,0.6]:sub_categoryArt                       NA         NA       NA
+## discount(0.6,0.7]:sub_categoryArt                       NA         NA       NA
+## discount(0.7,0.8]:sub_categoryArt                       NA         NA       NA
+## discount(0.1,0.2]:sub_categoryBinders            1.063e+01  5.413e+00    1.964
+## discount(0.2,0.3]:sub_categoryBinders                   NA         NA       NA
+## discount(0.3,0.4]:sub_categoryBinders                   NA         NA       NA
+## discount(0.4,0.5]:sub_categoryBinders                   NA         NA       NA
+## discount(0.5,0.6]:sub_categoryBinders                   NA         NA       NA
+## discount(0.6,0.7]:sub_categoryBinders            2.681e+00  1.716e+01    0.156
+## discount(0.7,0.8]:sub_categoryBinders                   NA         NA       NA
+## discount(0.1,0.2]:sub_categoryBookcases          8.744e+00  1.079e+01    0.811
+## discount(0.2,0.3]:sub_categoryBookcases         -1.958e+00  3.453e+01   -0.057
+## discount(0.3,0.4]:sub_categoryBookcases         -1.406e+01  1.957e+01   -0.719
+## discount(0.4,0.5]:sub_categoryBookcases          1.075e+01  2.182e+01    0.493
+## discount(0.5,0.6]:sub_categoryBookcases                 NA         NA       NA
+## discount(0.6,0.7]:sub_categoryBookcases         -4.106e+01  2.718e+01   -1.511
+## discount(0.7,0.8]:sub_categoryBookcases                 NA         NA       NA
+## discount(0.1,0.2]:sub_categoryChairs             1.047e+00  7.620e+00    0.137
+## discount(0.2,0.3]:sub_categoryChairs             1.694e+01  1.645e+01    1.030
+## discount(0.3,0.4]:sub_categoryChairs                    NA         NA       NA
+## discount(0.4,0.5]:sub_categoryChairs                    NA         NA       NA
+## discount(0.5,0.6]:sub_categoryChairs                    NA         NA       NA
+## discount(0.6,0.7]:sub_categoryChairs                    NA         NA       NA
+## discount(0.7,0.8]:sub_categoryChairs                    NA         NA       NA
+## discount(0.1,0.2]:sub_categoryCopiers            2.700e+01  1.683e+01    1.605
+## discount(0.2,0.3]:sub_categoryCopiers                   NA         NA       NA
+## discount(0.3,0.4]:sub_categoryCopiers            4.838e+01  2.685e+01    1.802
+## discount(0.4,0.5]:sub_categoryCopiers                   NA         NA       NA
+## discount(0.5,0.6]:sub_categoryCopiers                   NA         NA       NA
+## discount(0.6,0.7]:sub_categoryCopiers                   NA         NA       NA
+## discount(0.7,0.8]:sub_categoryCopiers                   NA         NA       NA
+## discount(0.1,0.2]:sub_categoryEnvelopes          8.844e+00  8.671e+00    1.020
+## discount(0.2,0.3]:sub_categoryEnvelopes                 NA         NA       NA
+## discount(0.3,0.4]:sub_categoryEnvelopes                 NA         NA       NA
+## discount(0.4,0.5]:sub_categoryEnvelopes                 NA         NA       NA
+## discount(0.5,0.6]:sub_categoryEnvelopes                 NA         NA       NA
+## discount(0.6,0.7]:sub_categoryEnvelopes                 NA         NA       NA
+## discount(0.7,0.8]:sub_categoryEnvelopes                 NA         NA       NA
+## discount(0.1,0.2]:sub_categoryFasteners          7.472e+00  1.073e+01    0.696
+## discount(0.2,0.3]:sub_categoryFasteners                 NA         NA       NA
+## discount(0.3,0.4]:sub_categoryFasteners                 NA         NA       NA
+## discount(0.4,0.5]:sub_categoryFasteners                 NA         NA       NA
+## discount(0.5,0.6]:sub_categoryFasteners                 NA         NA       NA
+## discount(0.6,0.7]:sub_categoryFasteners                 NA         NA       NA
+## discount(0.7,0.8]:sub_categoryFasteners                 NA         NA       NA
+## discount(0.1,0.2]:sub_categoryFurnishings        8.810e+00  6.092e+00    1.446
+## discount(0.2,0.3]:sub_categoryFurnishings               NA         NA       NA
+## discount(0.3,0.4]:sub_categoryFurnishings               NA         NA       NA
+## discount(0.4,0.5]:sub_categoryFurnishings               NA         NA       NA
+## discount(0.5,0.6]:sub_categoryFurnishings               NA         NA       NA
+## discount(0.6,0.7]:sub_categoryFurnishings               NA         NA       NA
+## discount(0.7,0.8]:sub_categoryFurnishings               NA         NA       NA
+## discount(0.1,0.2]:sub_categoryLabels             8.875e+00  7.121e+00    1.246
+## discount(0.2,0.3]:sub_categoryLabels                    NA         NA       NA
+## discount(0.3,0.4]:sub_categoryLabels                    NA         NA       NA
+## discount(0.4,0.5]:sub_categoryLabels                    NA         NA       NA
+## discount(0.5,0.6]:sub_categoryLabels                    NA         NA       NA
+## discount(0.6,0.7]:sub_categoryLabels                    NA         NA       NA
+## discount(0.7,0.8]:sub_categoryLabels                    NA         NA       NA
+## discount(0.1,0.2]:sub_categoryMachines          -6.666e+01  1.723e+01   -3.869
+## discount(0.2,0.3]:sub_categoryMachines          -2.320e+00  4.925e+01   -0.047
+## discount(0.3,0.4]:sub_categoryMachines          -8.710e+01  2.337e+01   -3.727
+## discount(0.4,0.5]:sub_categoryMachines          -3.986e+02  2.486e+01  -16.030
+## discount(0.5,0.6]:sub_categoryMachines                  NA         NA       NA
+## discount(0.6,0.7]:sub_categoryMachines                  NA         NA       NA
+## discount(0.7,0.8]:sub_categoryMachines                  NA         NA       NA
+## discount(0.1,0.2]:sub_categoryPaper              9.068e+00  5.351e+00    1.695
+## discount(0.2,0.3]:sub_categoryPaper                     NA         NA       NA
+## discount(0.3,0.4]:sub_categoryPaper                     NA         NA       NA
+## discount(0.4,0.5]:sub_categoryPaper                     NA         NA       NA
+## discount(0.5,0.6]:sub_categoryPaper                     NA         NA       NA
+## discount(0.6,0.7]:sub_categoryPaper                     NA         NA       NA
+## discount(0.7,0.8]:sub_categoryPaper                     NA         NA       NA
+## discount(0.1,0.2]:sub_categoryPhones             9.503e+00  6.063e+00    1.567
+## discount(0.2,0.3]:sub_categoryPhones                    NA         NA       NA
+## discount(0.3,0.4]:sub_categoryPhones            -5.128e+00  1.387e+01   -0.370
+## discount(0.4,0.5]:sub_categoryPhones                    NA         NA       NA
+## discount(0.5,0.6]:sub_categoryPhones                    NA         NA       NA
+## discount(0.6,0.7]:sub_categoryPhones                    NA         NA       NA
+## discount(0.7,0.8]:sub_categoryPhones                    NA         NA       NA
+## discount(0.1,0.2]:sub_categoryStorage            1.797e+01  5.959e+00    3.016
+## discount(0.2,0.3]:sub_categoryStorage                   NA         NA       NA
+## discount(0.3,0.4]:sub_categoryStorage                   NA         NA       NA
+## discount(0.4,0.5]:sub_categoryStorage                   NA         NA       NA
+## discount(0.5,0.6]:sub_categoryStorage                   NA         NA       NA
+## discount(0.6,0.7]:sub_categoryStorage                   NA         NA       NA
+## discount(0.7,0.8]:sub_categoryStorage                   NA         NA       NA
+## discount(0.1,0.2]:sub_categorySupplies           8.219e+00  8.474e+00    0.970
+## discount(0.2,0.3]:sub_categorySupplies                  NA         NA       NA
+## discount(0.3,0.4]:sub_categorySupplies                  NA         NA       NA
+## discount(0.4,0.5]:sub_categorySupplies                  NA         NA       NA
+## discount(0.5,0.6]:sub_categorySupplies                  NA         NA       NA
+## discount(0.6,0.7]:sub_categorySupplies                  NA         NA       NA
+## discount(0.7,0.8]:sub_categorySupplies                  NA         NA       NA
+## discount(0.1,0.2]:sub_categoryTables            -2.206e+01  1.314e+01   -1.678
+## discount(0.2,0.3]:sub_categoryTables                    NA         NA       NA
+## discount(0.3,0.4]:sub_categoryTables                    NA         NA       NA
+## discount(0.4,0.5]:sub_categoryTables                    NA         NA       NA
+## discount(0.5,0.6]:sub_categoryTables                    NA         NA       NA
+## discount(0.6,0.7]:sub_categoryTables                    NA         NA       NA
+## discount(0.7,0.8]:sub_categoryTables                    NA         NA       NA
+## discount(0.1,0.2]:sales                         -1.086e-01  1.319e-02   -8.229
+## discount(0.2,0.3]:sales                         -3.178e-01  2.183e-02  -14.554
+## discount(0.3,0.4]:sales                         -5.695e-01  1.135e-02  -50.199
+## discount(0.4,0.5]:sales                         -7.377e-01  2.638e-02  -27.964
+## discount(0.5,0.6]:sales                         -1.319e+00  5.804e-02  -22.721
+## discount(0.6,0.7]:sales                         -1.769e+00  1.039e-02 -170.272
+## discount(0.7,0.8]:sales                         -2.101e+00  1.311e-02 -160.261
+## sub_categoryAppliances:sales                     1.209e-03  8.455e-03    0.143
+## sub_categoryArt:sales                           -7.912e-03  4.113e-02   -0.192
+## sub_categoryBinders:sales                        1.953e-01  6.315e-03   30.920
+## sub_categoryBookcases:sales                     -9.577e-02  1.071e-02   -8.943
+## sub_categoryChairs:sales                        -7.772e-02  7.554e-03  -10.289
+## sub_categoryCopiers:sales                        1.899e-01  6.117e-03   31.042
+## sub_categoryEnvelopes:sales                      1.680e-01  4.713e-02    3.564
+## sub_categoryFasteners:sales                     -1.897e-02  3.308e-01   -0.057
+## sub_categoryFurnishings:sales                   -6.192e-02  1.341e-02   -4.619
+## sub_categoryLabels:sales                         1.896e-01  3.917e-02    4.839
+## sub_categoryMachines:sales                       2.582e-02  6.622e-03    3.899
+## sub_categoryPaper:sales                          1.850e-01  2.039e-02    9.071
+## sub_categoryPhones:sales                        -1.901e-02  7.639e-03   -2.489
+## sub_categoryStorage:sales                       -1.041e-01  7.814e-03  -13.326
+## sub_categorySupplies:sales                      -2.619e-01  7.120e-03  -36.779
+## sub_categoryTables:sales                        -1.315e-01  9.601e-03  -13.700
+## discount(0.1,0.2]:sub_categoryAppliances:sales  -5.911e-02  2.140e-02   -2.762
+## discount(0.2,0.3]:sub_categoryAppliances:sales          NA         NA       NA
+## discount(0.3,0.4]:sub_categoryAppliances:sales          NA         NA       NA
+## discount(0.4,0.5]:sub_categoryAppliances:sales          NA         NA       NA
+## discount(0.5,0.6]:sub_categoryAppliances:sales          NA         NA       NA
+## discount(0.6,0.7]:sub_categoryAppliances:sales          NA         NA       NA
+## discount(0.7,0.8]:sub_categoryAppliances:sales  -7.680e-01  8.070e-02   -9.517
+## discount(0.1,0.2]:sub_categoryArt:sales         -7.592e-02  5.763e-02   -1.317
+## discount(0.2,0.3]:sub_categoryArt:sales                 NA         NA       NA
+## discount(0.3,0.4]:sub_categoryArt:sales                 NA         NA       NA
+## discount(0.4,0.5]:sub_categoryArt:sales                 NA         NA       NA
+## discount(0.5,0.6]:sub_categoryArt:sales                 NA         NA       NA
+## discount(0.6,0.7]:sub_categoryArt:sales                 NA         NA       NA
+## discount(0.7,0.8]:sub_categoryArt:sales                 NA         NA       NA
+## discount(0.1,0.2]:sub_categoryBinders:sales     -3.252e-02  1.404e-02   -2.316
+## discount(0.2,0.3]:sub_categoryBinders:sales             NA         NA       NA
+## discount(0.3,0.4]:sub_categoryBinders:sales             NA         NA       NA
+## discount(0.4,0.5]:sub_categoryBinders:sales             NA         NA       NA
+## discount(0.5,0.6]:sub_categoryBinders:sales             NA         NA       NA
+## discount(0.6,0.7]:sub_categoryBinders:sales      5.531e-01  1.582e-02   34.967
+## discount(0.7,0.8]:sub_categoryBinders:sales             NA         NA       NA
+## discount(0.1,0.2]:sub_categoryBookcases:sales   -5.314e-02  1.744e-02   -3.048
+## discount(0.2,0.3]:sub_categoryBookcases:sales    3.475e-02  6.547e-02    0.531
+## discount(0.3,0.4]:sub_categoryBookcases:sales    2.232e-01  2.311e-02    9.662
+## discount(0.4,0.5]:sub_categoryBookcases:sales    9.993e-04  3.256e-02    0.031
+## discount(0.5,0.6]:sub_categoryBookcases:sales           NA         NA       NA
+## discount(0.6,0.7]:sub_categoryBookcases:sales    2.711e-01  9.686e-02    2.798
+## discount(0.7,0.8]:sub_categoryBookcases:sales           NA         NA       NA
+## discount(0.1,0.2]:sub_categoryChairs:sales      -4.818e-02  1.550e-02   -3.108
+## discount(0.2,0.3]:sub_categoryChairs:sales       4.691e-03  2.375e-02    0.198
+## discount(0.3,0.4]:sub_categoryChairs:sales              NA         NA       NA
+## discount(0.4,0.5]:sub_categoryChairs:sales              NA         NA       NA
+## discount(0.5,0.6]:sub_categoryChairs:sales              NA         NA       NA
+## discount(0.6,0.7]:sub_categoryChairs:sales              NA         NA       NA
+## discount(0.7,0.8]:sub_categoryChairs:sales              NA         NA       NA
+## discount(0.1,0.2]:sub_categoryCopiers:sales     -2.460e-02  1.404e-02   -1.753
+## discount(0.2,0.3]:sub_categoryCopiers:sales             NA         NA       NA
+## discount(0.3,0.4]:sub_categoryCopiers:sales      2.195e-01  1.340e-02   16.379
+## discount(0.4,0.5]:sub_categoryCopiers:sales             NA         NA       NA
+## discount(0.5,0.6]:sub_categoryCopiers:sales             NA         NA       NA
+## discount(0.6,0.7]:sub_categoryCopiers:sales             NA         NA       NA
+## discount(0.7,0.8]:sub_categoryCopiers:sales             NA         NA       NA
+## discount(0.1,0.2]:sub_categoryEnvelopes:sales   -2.110e-02  7.288e-02   -0.289
+## discount(0.2,0.3]:sub_categoryEnvelopes:sales           NA         NA       NA
+## discount(0.3,0.4]:sub_categoryEnvelopes:sales           NA         NA       NA
+## discount(0.4,0.5]:sub_categoryEnvelopes:sales           NA         NA       NA
+## discount(0.5,0.6]:sub_categoryEnvelopes:sales           NA         NA       NA
+## discount(0.6,0.7]:sub_categoryEnvelopes:sales           NA         NA       NA
+## discount(0.7,0.8]:sub_categoryEnvelopes:sales           NA         NA       NA
+## discount(0.1,0.2]:sub_categoryFasteners:sales    1.055e-01  5.354e-01    0.197
+## discount(0.2,0.3]:sub_categoryFasteners:sales           NA         NA       NA
+## discount(0.3,0.4]:sub_categoryFasteners:sales           NA         NA       NA
+## discount(0.4,0.5]:sub_categoryFasteners:sales           NA         NA       NA
+## discount(0.5,0.6]:sub_categoryFasteners:sales           NA         NA       NA
+## discount(0.6,0.7]:sub_categoryFasteners:sales           NA         NA       NA
+## discount(0.7,0.8]:sub_categoryFasteners:sales           NA         NA       NA
+## discount(0.1,0.2]:sub_categoryFurnishings:sales -7.787e-02  2.857e-02   -2.725
+## discount(0.2,0.3]:sub_categoryFurnishings:sales         NA         NA       NA
+## discount(0.3,0.4]:sub_categoryFurnishings:sales         NA         NA       NA
+## discount(0.4,0.5]:sub_categoryFurnishings:sales         NA         NA       NA
+## discount(0.5,0.6]:sub_categoryFurnishings:sales         NA         NA       NA
+## discount(0.6,0.7]:sub_categoryFurnishings:sales         NA         NA       NA
+## discount(0.7,0.8]:sub_categoryFurnishings:sales         NA         NA       NA
+## discount(0.1,0.2]:sub_categoryLabels:sales      -1.681e-02  7.959e-02   -0.211
+## discount(0.2,0.3]:sub_categoryLabels:sales              NA         NA       NA
+## discount(0.3,0.4]:sub_categoryLabels:sales              NA         NA       NA
+## discount(0.4,0.5]:sub_categoryLabels:sales              NA         NA       NA
+## discount(0.5,0.6]:sub_categoryLabels:sales              NA         NA       NA
+## discount(0.6,0.7]:sub_categoryLabels:sales              NA         NA       NA
+## discount(0.7,0.8]:sub_categoryLabels:sales              NA         NA       NA
+## discount(0.1,0.2]:sub_categoryMachines:sales    -1.272e-01  1.519e-02   -8.378
+## discount(0.2,0.3]:sub_categoryMachines:sales    -7.151e-02  5.786e-02   -1.236
+## discount(0.3,0.4]:sub_categoryMachines:sales     7.635e-02  1.339e-02    5.702
+## discount(0.4,0.5]:sub_categoryMachines:sales     3.076e-01  2.669e-02   11.528
+## discount(0.5,0.6]:sub_categoryMachines:sales            NA         NA       NA
+## discount(0.6,0.7]:sub_categoryMachines:sales            NA         NA       NA
+## discount(0.7,0.8]:sub_categoryMachines:sales            NA         NA       NA
+## discount(0.1,0.2]:sub_categoryPaper:sales       -2.428e-02  3.844e-02   -0.632
+## discount(0.2,0.3]:sub_categoryPaper:sales               NA         NA       NA
+## discount(0.3,0.4]:sub_categoryPaper:sales               NA         NA       NA
+## discount(0.4,0.5]:sub_categoryPaper:sales               NA         NA       NA
+## discount(0.5,0.6]:sub_categoryPaper:sales               NA         NA       NA
+## discount(0.6,0.7]:sub_categoryPaper:sales               NA         NA       NA
+## discount(0.7,0.8]:sub_categoryPaper:sales               NA         NA       NA
+## discount(0.1,0.2]:sub_categoryPhones:sales      -7.414e-02  1.484e-02   -4.997
+## discount(0.2,0.3]:sub_categoryPhones:sales              NA         NA       NA
+## discount(0.3,0.4]:sub_categoryPhones:sales       9.276e-02  1.734e-02    5.351
+## discount(0.4,0.5]:sub_categoryPhones:sales              NA         NA       NA
+## discount(0.5,0.6]:sub_categoryPhones:sales              NA         NA       NA
+## discount(0.6,0.7]:sub_categoryPhones:sales              NA         NA       NA
+## discount(0.7,0.8]:sub_categoryPhones:sales              NA         NA       NA
+## discount(0.1,0.2]:sub_categoryStorage:sales     -1.482e-01  1.695e-02   -8.743
+## discount(0.2,0.3]:sub_categoryStorage:sales             NA         NA       NA
+## discount(0.3,0.4]:sub_categoryStorage:sales             NA         NA       NA
+## discount(0.4,0.5]:sub_categoryStorage:sales             NA         NA       NA
+## discount(0.5,0.6]:sub_categoryStorage:sales             NA         NA       NA
+## discount(0.6,0.7]:sub_categoryStorage:sales             NA         NA       NA
+## discount(0.7,0.8]:sub_categoryStorage:sales             NA         NA       NA
+## discount(0.1,0.2]:sub_categorySupplies:sales    -1.410e-01  1.585e-02   -8.899
+## discount(0.2,0.3]:sub_categorySupplies:sales            NA         NA       NA
+## discount(0.3,0.4]:sub_categorySupplies:sales            NA         NA       NA
+## discount(0.4,0.5]:sub_categorySupplies:sales            NA         NA       NA
+## discount(0.5,0.6]:sub_categorySupplies:sales            NA         NA       NA
+## discount(0.6,0.7]:sub_categorySupplies:sales            NA         NA       NA
+## discount(0.7,0.8]:sub_categorySupplies:sales            NA         NA       NA
+## discount(0.1,0.2]:sub_categoryTables:sales      -4.731e-02  1.772e-02   -2.671
+## discount(0.2,0.3]:sub_categoryTables:sales              NA         NA       NA
+## discount(0.3,0.4]:sub_categoryTables:sales              NA         NA       NA
+## discount(0.4,0.5]:sub_categoryTables:sales              NA         NA       NA
+## discount(0.5,0.6]:sub_categoryTables:sales              NA         NA       NA
+## discount(0.6,0.7]:sub_categoryTables:sales              NA         NA       NA
+## discount(0.7,0.8]:sub_categoryTables:sales              NA         NA       NA
+##                                                 Pr(&gt;|t|)    
+## (Intercept)                                     0.759142    
+## discount(0.1,0.2]                               0.033822 *  
+## discount(0.2,0.3]                               0.384654    
+## discount(0.3,0.4]                               0.445258    
+## discount(0.4,0.5]                               0.121332    
+## discount(0.5,0.6]                               0.379128    
+## discount(0.6,0.7]                               0.956116    
+## discount(0.7,0.8]                               0.593084    
+## sub_categoryAppliances                          0.766908    
+## sub_categoryArt                                 0.917793    
+## sub_categoryBinders                             0.395574    
+## sub_categoryBookcases                           0.499715    
+## sub_categoryChairs                              0.353024    
+## sub_categoryCopiers                             1.04e-07 ***
+## sub_categoryEnvelopes                           0.949495    
+## sub_categoryFasteners                           0.957421    
+## sub_categoryFurnishings                         0.304223    
+## sub_categoryLabels                              0.810904    
+## sub_categoryMachines                             &lt; 2e-16 ***
+## sub_categoryPaper                               0.759286    
+## sub_categoryPhones                              0.960544    
+## sub_categoryStorage                             0.010326 *  
+## sub_categorySupplies                            0.342277    
+## sub_categoryTables                              0.031944 *  
+## sales                                            &lt; 2e-16 ***
+## discount(0.1,0.2]:sub_categoryAppliances        0.374802    
+## discount(0.2,0.3]:sub_categoryAppliances              NA    
+## discount(0.3,0.4]:sub_categoryAppliances              NA    
+## discount(0.4,0.5]:sub_categoryAppliances              NA    
+## discount(0.5,0.6]:sub_categoryAppliances              NA    
+## discount(0.6,0.7]:sub_categoryAppliances              NA    
+## discount(0.7,0.8]:sub_categoryAppliances        0.938364    
+## discount(0.1,0.2]:sub_categoryArt               0.109203    
+## discount(0.2,0.3]:sub_categoryArt                     NA    
+## discount(0.3,0.4]:sub_categoryArt                     NA    
+## discount(0.4,0.5]:sub_categoryArt                     NA    
+## discount(0.5,0.6]:sub_categoryArt                     NA    
+## discount(0.6,0.7]:sub_categoryArt                     NA    
+## discount(0.7,0.8]:sub_categoryArt                     NA    
+## discount(0.1,0.2]:sub_categoryBinders           0.049513 *  
+## discount(0.2,0.3]:sub_categoryBinders                 NA    
+## discount(0.3,0.4]:sub_categoryBinders                 NA    
+## discount(0.4,0.5]:sub_categoryBinders                 NA    
+## discount(0.5,0.6]:sub_categoryBinders                 NA    
+## discount(0.6,0.7]:sub_categoryBinders           0.875829    
+## discount(0.7,0.8]:sub_categoryBinders                 NA    
+## discount(0.1,0.2]:sub_categoryBookcases         0.417623    
+## discount(0.2,0.3]:sub_categoryBookcases         0.954780    
+## discount(0.3,0.4]:sub_categoryBookcases         0.472398    
+## discount(0.4,0.5]:sub_categoryBookcases         0.622373    
+## discount(0.5,0.6]:sub_categoryBookcases               NA    
+## discount(0.6,0.7]:sub_categoryBookcases         0.130925    
+## discount(0.7,0.8]:sub_categoryBookcases               NA    
+## discount(0.1,0.2]:sub_categoryChairs            0.890685    
+## discount(0.2,0.3]:sub_categoryChairs            0.303164    
+## discount(0.3,0.4]:sub_categoryChairs                  NA    
+## discount(0.4,0.5]:sub_categoryChairs                  NA    
+## discount(0.5,0.6]:sub_categoryChairs                  NA    
+## discount(0.6,0.7]:sub_categoryChairs                  NA    
+## discount(0.7,0.8]:sub_categoryChairs                  NA    
+## discount(0.1,0.2]:sub_categoryCopiers           0.108540    
+## discount(0.2,0.3]:sub_categoryCopiers                 NA    
+## discount(0.3,0.4]:sub_categoryCopiers           0.071636 .  
+## discount(0.4,0.5]:sub_categoryCopiers                 NA    
+## discount(0.5,0.6]:sub_categoryCopiers                 NA    
+## discount(0.6,0.7]:sub_categoryCopiers                 NA    
+## discount(0.7,0.8]:sub_categoryCopiers                 NA    
+## discount(0.1,0.2]:sub_categoryEnvelopes         0.307796    
+## discount(0.2,0.3]:sub_categoryEnvelopes               NA    
+## discount(0.3,0.4]:sub_categoryEnvelopes               NA    
+## discount(0.4,0.5]:sub_categoryEnvelopes               NA    
+## discount(0.5,0.6]:sub_categoryEnvelopes               NA    
+## discount(0.6,0.7]:sub_categoryEnvelopes               NA    
+## discount(0.7,0.8]:sub_categoryEnvelopes               NA    
+## discount(0.1,0.2]:sub_categoryFasteners         0.486374    
+## discount(0.2,0.3]:sub_categoryFasteners               NA    
+## discount(0.3,0.4]:sub_categoryFasteners               NA    
+## discount(0.4,0.5]:sub_categoryFasteners               NA    
+## discount(0.5,0.6]:sub_categoryFasteners               NA    
+## discount(0.6,0.7]:sub_categoryFasteners               NA    
+## discount(0.7,0.8]:sub_categoryFasteners               NA    
+## discount(0.1,0.2]:sub_categoryFurnishings       0.148151    
+## discount(0.2,0.3]:sub_categoryFurnishings             NA    
+## discount(0.3,0.4]:sub_categoryFurnishings             NA    
+## discount(0.4,0.5]:sub_categoryFurnishings             NA    
+## discount(0.5,0.6]:sub_categoryFurnishings             NA    
+## discount(0.6,0.7]:sub_categoryFurnishings             NA    
+## discount(0.7,0.8]:sub_categoryFurnishings             NA    
+## discount(0.1,0.2]:sub_categoryLabels            0.212700    
+## discount(0.2,0.3]:sub_categoryLabels                  NA    
+## discount(0.3,0.4]:sub_categoryLabels                  NA    
+## discount(0.4,0.5]:sub_categoryLabels                  NA    
+## discount(0.5,0.6]:sub_categoryLabels                  NA    
+## discount(0.6,0.7]:sub_categoryLabels                  NA    
+## discount(0.7,0.8]:sub_categoryLabels                  NA    
+## discount(0.1,0.2]:sub_categoryMachines          0.000110 ***
+## discount(0.2,0.3]:sub_categoryMachines          0.962420    
+## discount(0.3,0.4]:sub_categoryMachines          0.000195 ***
+## discount(0.4,0.5]:sub_categoryMachines           &lt; 2e-16 ***
+## discount(0.5,0.6]:sub_categoryMachines                NA    
+## discount(0.6,0.7]:sub_categoryMachines                NA    
+## discount(0.7,0.8]:sub_categoryMachines                NA    
+## discount(0.1,0.2]:sub_categoryPaper             0.090170 .  
+## discount(0.2,0.3]:sub_categoryPaper                   NA    
+## discount(0.3,0.4]:sub_categoryPaper                   NA    
+## discount(0.4,0.5]:sub_categoryPaper                   NA    
+## discount(0.5,0.6]:sub_categoryPaper                   NA    
+## discount(0.6,0.7]:sub_categoryPaper                   NA    
+## discount(0.7,0.8]:sub_categoryPaper                   NA    
+## discount(0.1,0.2]:sub_categoryPhones            0.117061    
+## discount(0.2,0.3]:sub_categoryPhones                  NA    
+## discount(0.3,0.4]:sub_categoryPhones            0.711547    
+## discount(0.4,0.5]:sub_categoryPhones                  NA    
+## discount(0.5,0.6]:sub_categoryPhones                  NA    
+## discount(0.6,0.7]:sub_categoryPhones                  NA    
+## discount(0.7,0.8]:sub_categoryPhones                  NA    
+## discount(0.1,0.2]:sub_categoryStorage           0.002564 ** 
+## discount(0.2,0.3]:sub_categoryStorage                 NA    
+## discount(0.3,0.4]:sub_categoryStorage                 NA    
+## discount(0.4,0.5]:sub_categoryStorage                 NA    
+## discount(0.5,0.6]:sub_categoryStorage                 NA    
+## discount(0.6,0.7]:sub_categoryStorage                 NA    
+## discount(0.7,0.8]:sub_categoryStorage                 NA    
+## discount(0.1,0.2]:sub_categorySupplies          0.332134    
+## discount(0.2,0.3]:sub_categorySupplies                NA    
+## discount(0.3,0.4]:sub_categorySupplies                NA    
+## discount(0.4,0.5]:sub_categorySupplies                NA    
+## discount(0.5,0.6]:sub_categorySupplies                NA    
+## discount(0.6,0.7]:sub_categorySupplies                NA    
+## discount(0.7,0.8]:sub_categorySupplies                NA    
+## discount(0.1,0.2]:sub_categoryTables            0.093282 .  
+## discount(0.2,0.3]:sub_categoryTables                  NA    
+## discount(0.3,0.4]:sub_categoryTables                  NA    
+## discount(0.4,0.5]:sub_categoryTables                  NA    
+## discount(0.5,0.6]:sub_categoryTables                  NA    
+## discount(0.6,0.7]:sub_categoryTables                  NA    
+## discount(0.7,0.8]:sub_categoryTables                  NA    
+## discount(0.1,0.2]:sales                          &lt; 2e-16 ***
+## discount(0.2,0.3]:sales                          &lt; 2e-16 ***
+## discount(0.3,0.4]:sales                          &lt; 2e-16 ***
+## discount(0.4,0.5]:sales                          &lt; 2e-16 ***
+## discount(0.5,0.6]:sales                          &lt; 2e-16 ***
+## discount(0.6,0.7]:sales                          &lt; 2e-16 ***
+## discount(0.7,0.8]:sales                          &lt; 2e-16 ***
+## sub_categoryAppliances:sales                    0.886293    
+## sub_categoryArt:sales                           0.847452    
+## sub_categoryBinders:sales                        &lt; 2e-16 ***
+## sub_categoryBookcases:sales                      &lt; 2e-16 ***
+## sub_categoryChairs:sales                         &lt; 2e-16 ***
+## sub_categoryCopiers:sales                        &lt; 2e-16 ***
+## sub_categoryEnvelopes:sales                     0.000366 ***
+## sub_categoryFasteners:sales                     0.954264    
+## sub_categoryFurnishings:sales                   3.90e-06 ***
+## sub_categoryLabels:sales                        1.32e-06 ***
+## sub_categoryMachines:sales                      9.72e-05 ***
+## sub_categoryPaper:sales                          &lt; 2e-16 ***
+## sub_categoryPhones:sales                        0.012833 *  
+## sub_categoryStorage:sales                        &lt; 2e-16 ***
+## sub_categorySupplies:sales                       &lt; 2e-16 ***
+## sub_categoryTables:sales                         &lt; 2e-16 ***
+## discount(0.1,0.2]:sub_categoryAppliances:sales  0.005750 ** 
+## discount(0.2,0.3]:sub_categoryAppliances:sales        NA    
+## discount(0.3,0.4]:sub_categoryAppliances:sales        NA    
+## discount(0.4,0.5]:sub_categoryAppliances:sales        NA    
+## discount(0.5,0.6]:sub_categoryAppliances:sales        NA    
+## discount(0.6,0.7]:sub_categoryAppliances:sales        NA    
+## discount(0.7,0.8]:sub_categoryAppliances:sales   &lt; 2e-16 ***
+## discount(0.1,0.2]:sub_categoryArt:sales         0.187786    
+## discount(0.2,0.3]:sub_categoryArt:sales               NA    
+## discount(0.3,0.4]:sub_categoryArt:sales               NA    
+## discount(0.4,0.5]:sub_categoryArt:sales               NA    
+## discount(0.5,0.6]:sub_categoryArt:sales               NA    
+## discount(0.6,0.7]:sub_categoryArt:sales               NA    
+## discount(0.7,0.8]:sub_categoryArt:sales               NA    
+## discount(0.1,0.2]:sub_categoryBinders:sales     0.020569 *  
+## discount(0.2,0.3]:sub_categoryBinders:sales           NA    
+## discount(0.3,0.4]:sub_categoryBinders:sales           NA    
+## discount(0.4,0.5]:sub_categoryBinders:sales           NA    
+## discount(0.5,0.6]:sub_categoryBinders:sales           NA    
+## discount(0.6,0.7]:sub_categoryBinders:sales      &lt; 2e-16 ***
+## discount(0.7,0.8]:sub_categoryBinders:sales           NA    
+## discount(0.1,0.2]:sub_categoryBookcases:sales   0.002312 ** 
+## discount(0.2,0.3]:sub_categoryBookcases:sales   0.595646    
+## discount(0.3,0.4]:sub_categoryBookcases:sales    &lt; 2e-16 ***
+## discount(0.4,0.5]:sub_categoryBookcases:sales   0.975520    
+## discount(0.5,0.6]:sub_categoryBookcases:sales         NA    
+## discount(0.6,0.7]:sub_categoryBookcases:sales   0.005146 ** 
+## discount(0.7,0.8]:sub_categoryBookcases:sales         NA    
+## discount(0.1,0.2]:sub_categoryChairs:sales      0.001886 ** 
+## discount(0.2,0.3]:sub_categoryChairs:sales      0.843433    
+## discount(0.3,0.4]:sub_categoryChairs:sales            NA    
+## discount(0.4,0.5]:sub_categoryChairs:sales            NA    
+## discount(0.5,0.6]:sub_categoryChairs:sales            NA    
+## discount(0.6,0.7]:sub_categoryChairs:sales            NA    
+## discount(0.7,0.8]:sub_categoryChairs:sales            NA    
+## discount(0.1,0.2]:sub_categoryCopiers:sales     0.079703 .  
+## discount(0.2,0.3]:sub_categoryCopiers:sales           NA    
+## discount(0.3,0.4]:sub_categoryCopiers:sales      &lt; 2e-16 ***
+## discount(0.4,0.5]:sub_categoryCopiers:sales           NA    
+## discount(0.5,0.6]:sub_categoryCopiers:sales           NA    
+## discount(0.6,0.7]:sub_categoryCopiers:sales           NA    
+## discount(0.7,0.8]:sub_categoryCopiers:sales           NA    
+## discount(0.1,0.2]:sub_categoryEnvelopes:sales   0.772241    
+## discount(0.2,0.3]:sub_categoryEnvelopes:sales         NA    
+## discount(0.3,0.4]:sub_categoryEnvelopes:sales         NA    
+## discount(0.4,0.5]:sub_categoryEnvelopes:sales         NA    
+## discount(0.5,0.6]:sub_categoryEnvelopes:sales         NA    
+## discount(0.6,0.7]:sub_categoryEnvelopes:sales         NA    
+## discount(0.7,0.8]:sub_categoryEnvelopes:sales         NA    
+## discount(0.1,0.2]:sub_categoryFasteners:sales   0.843733    
+## discount(0.2,0.3]:sub_categoryFasteners:sales         NA    
+## discount(0.3,0.4]:sub_categoryFasteners:sales         NA    
+## discount(0.4,0.5]:sub_categoryFasteners:sales         NA    
+## discount(0.5,0.6]:sub_categoryFasteners:sales         NA    
+## discount(0.6,0.7]:sub_categoryFasteners:sales         NA    
+## discount(0.7,0.8]:sub_categoryFasteners:sales         NA    
+## discount(0.1,0.2]:sub_categoryFurnishings:sales 0.006435 ** 
+## discount(0.2,0.3]:sub_categoryFurnishings:sales       NA    
+## discount(0.3,0.4]:sub_categoryFurnishings:sales       NA    
+## discount(0.4,0.5]:sub_categoryFurnishings:sales       NA    
+## discount(0.5,0.6]:sub_categoryFurnishings:sales       NA    
+## discount(0.6,0.7]:sub_categoryFurnishings:sales       NA    
+## discount(0.7,0.8]:sub_categoryFurnishings:sales       NA    
+## discount(0.1,0.2]:sub_categoryLabels:sales      0.832733    
+## discount(0.2,0.3]:sub_categoryLabels:sales            NA    
+## discount(0.3,0.4]:sub_categoryLabels:sales            NA    
+## discount(0.4,0.5]:sub_categoryLabels:sales            NA    
+## discount(0.5,0.6]:sub_categoryLabels:sales            NA    
+## discount(0.6,0.7]:sub_categoryLabels:sales            NA    
+## discount(0.7,0.8]:sub_categoryLabels:sales            NA    
+## discount(0.1,0.2]:sub_categoryMachines:sales     &lt; 2e-16 ***
+## discount(0.2,0.3]:sub_categoryMachines:sales    0.216542    
+## discount(0.3,0.4]:sub_categoryMachines:sales    1.22e-08 ***
+## discount(0.4,0.5]:sub_categoryMachines:sales     &lt; 2e-16 ***
+## discount(0.5,0.6]:sub_categoryMachines:sales          NA    
+## discount(0.6,0.7]:sub_categoryMachines:sales          NA    
+## discount(0.7,0.8]:sub_categoryMachines:sales          NA    
+## discount(0.1,0.2]:sub_categoryPaper:sales       0.527610    
+## discount(0.2,0.3]:sub_categoryPaper:sales             NA    
+## discount(0.3,0.4]:sub_categoryPaper:sales             NA    
+## discount(0.4,0.5]:sub_categoryPaper:sales             NA    
+## discount(0.5,0.6]:sub_categoryPaper:sales             NA    
+## discount(0.6,0.7]:sub_categoryPaper:sales             NA    
+## discount(0.7,0.8]:sub_categoryPaper:sales             NA    
+## discount(0.1,0.2]:sub_categoryPhones:sales      5.93e-07 ***
+## discount(0.2,0.3]:sub_categoryPhones:sales            NA    
+## discount(0.3,0.4]:sub_categoryPhones:sales      8.95e-08 ***
+## discount(0.4,0.5]:sub_categoryPhones:sales            NA    
+## discount(0.5,0.6]:sub_categoryPhones:sales            NA    
+## discount(0.6,0.7]:sub_categoryPhones:sales            NA    
+## discount(0.7,0.8]:sub_categoryPhones:sales            NA    
+## discount(0.1,0.2]:sub_categoryStorage:sales      &lt; 2e-16 ***
+## discount(0.2,0.3]:sub_categoryStorage:sales           NA    
+## discount(0.3,0.4]:sub_categoryStorage:sales           NA    
+## discount(0.4,0.5]:sub_categoryStorage:sales           NA    
+## discount(0.5,0.6]:sub_categoryStorage:sales           NA    
+## discount(0.6,0.7]:sub_categoryStorage:sales           NA    
+## discount(0.7,0.8]:sub_categoryStorage:sales           NA    
+## discount(0.1,0.2]:sub_categorySupplies:sales     &lt; 2e-16 ***
+## discount(0.2,0.3]:sub_categorySupplies:sales          NA    
+## discount(0.3,0.4]:sub_categorySupplies:sales          NA    
+## discount(0.4,0.5]:sub_categorySupplies:sales          NA    
+## discount(0.5,0.6]:sub_categorySupplies:sales          NA    
+## discount(0.6,0.7]:sub_categorySupplies:sales          NA    
+## discount(0.7,0.8]:sub_categorySupplies:sales          NA    
+## discount(0.1,0.2]:sub_categoryTables:sales      0.007586 ** 
+## discount(0.2,0.3]:sub_categoryTables:sales            NA    
+## discount(0.3,0.4]:sub_categoryTables:sales            NA    
+## discount(0.4,0.5]:sub_categoryTables:sales            NA    
+## discount(0.5,0.6]:sub_categoryTables:sales            NA    
+## discount(0.6,0.7]:sub_categoryTables:sales            NA    
+## discount(0.7,0.8]:sub_categoryTables:sales            NA    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 47.43 on 9890 degrees of freedom
+## Multiple R-squared:  0.9594, Adjusted R-squared:  0.959 
+## F-statistic:  2270 on 103 and 9890 DF,  p-value: &lt; 2.2e-16</code></pre>
+<pre class="r"><code class="hljs">superstore_stats &lt;- (lm(profit ~ discount * sub_category * sales, data = Superstore_data)) </code></pre>
+<p>The interaction of discount offered, product subcategory, and sales
+totals significantly predicts profits (R<sup>2</sup> = 95.64).</p>
+<div id="section-profits-and-quantity-sold" class="section level4">
+<h4>Profits and Quantity Sold</h4>
+<p>We’ll use the statistical analysis to make predictions about profits
+for the firm</p>
+<pre class="r"><code class="hljs">Superstore_data &lt;- Superstore_data %&gt;% 
+  mutate(prediction = predict(superstore_stats),
+         residuals = residuals(superstore_stats))</code></pre>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  filter(sub_category != <span class="hljs-string">'Copiers'</span>) %&gt;% 
+  ggplot(aes(x = quantity, y = prediction)) + 
+  geom_hline(aes(yintercept = <span class="hljs-number">0</span>, color = <span class="hljs-string">"red"</span>))+
+  geom_smooth(formula = y~s(x, bs = <span class="hljs-string">"cs"</span>, k = <span class="hljs-number">9</span>), method = <span class="hljs-string">'gam'</span>)+
+  theme(legend.position = <span class="hljs-string">""</span>)+
+  scale_y_continuous(<span class="hljs-string">"Predicted Profit"</span>, labels = scales::dollar)+
+  facet_wrap(~sub_category)+
+  labs(title = <span class="hljs-string">"Quantity sold vs Predicted Profits by product subcategory"</span>,
+       x = <span class="hljs-string">"Quantity Sold"</span>)</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-47-1.png" width="672"></p>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  filter(sub_category == <span class="hljs-string">'Copiers'</span>) %&gt;% 
+  ggplot(aes(x = quantity, y = prediction)) + 
+  geom_hline(aes(yintercept = <span class="hljs-number">0</span>, color = <span class="hljs-string">"red"</span>))+
+  geom_smooth(formula = y~s(x, bs = <span class="hljs-string">"cs"</span>, k = <span class="hljs-number">9</span>), method = <span class="hljs-string">'gam'</span>)+
+  theme(legend.position = <span class="hljs-string">""</span>)+
+  scale_y_continuous(<span class="hljs-string">"Predicted Profit"</span>, labels = scales::dollar)+
+  labs(title = <span class="hljs-string">"Quantity sold vs Predicted Profits for Copiers"</span>,
+       x = <span class="hljs-string">"Quantity Sold"</span>)</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-48-1.png" width="672"></p>
+<p>For most product subcategories, excluding tables, more sales predict
+higher products. Copiers are by far the most profitable.</p>
+</div>
+<div id="section-discounts-and-predicted-profits" class="section level4">
+<h4>Discounts and predicted profits</h4>
+<pre class="r"><code class="hljs">Superstore_data %&gt;% 
+  group_by(sub_category, discount) %&gt;% 
+  ggplot(aes(x = discount, y = prediction)) + 
+  geom_hline(aes(yintercept = <span class="hljs-number">0</span>, color = <span class="hljs-string">"black"</span>))+
+  geom_col(aes(fill = prediction))+
+  theme_bw()+
+  theme(legend.position = <span class="hljs-string">""</span>)+
+  scale_y_continuous(<span class="hljs-string">"Predicted Profit"</span>, labels = scales::dollar)+
+  facet_wrap(~sub_category, ncol = <span class="hljs-number">3</span>)+
+  labs(title = <span class="hljs-string">"Discount offered vs Predicted Profits by product subcategory"</span>,
+       x = <span class="hljs-string">"Discount"</span>)+
+  theme(axis.text.x = element_text(angle = <span class="hljs-number">90</span>))</code></pre>
+<p><img src="./Superstore data analysis_files/unnamed-chunk-49-1.png" width="672"></p>
+<p>Across product subcategories, most stay profitable until the discount
+offered is greater than 15-30%.</p>
+</div>
+</div>
+</div>
+<div id="section-conclusions-and-recommendations" class="section level2">
+<h2>Conclusions and Recommendations</h2>
+<div id="section-conclusions" class="section level3">
+<h3>Conclusions:</h3>
+<ol style="list-style-type: decimal">
+<li><p>Most sales and profits are to Consumers, and in the Eastern and
+Western Regions.</p></li>
+<li><p>Technology tends to have the best total and average sales and
+profits. Furniture tends to under-perform relative to other product
+categories.</p>
+<ol style="list-style-type: decimal">
+<li>Copiers and phones are the most profitable, and tables and machines
+tend to net losses.</li>
+</ol></li>
+<li><p>Most products remain profitable so long as the discount offered
+is no more than 30 percent off.</p>
+<ol style="list-style-type: decimal">
+<li>Machines see the most drastic decreases in profit margin when the
+discount offered increases.</li>
+</ol></li>
+<li><p>Sales and profits tend to be best across each region and segment
+in September, November, and December, likely due to back to school and
+holiday shopping.</p></li>
+<li><p>Customers prefer standard shipping to other shipping
+methods.</p></li>
+<li><p>Using the linear model, we can confidently predict that greater
+quantity sold will generate more profits for most product subcategories,
+aside from tables.</p></li>
+</ol>
+</div>
+<div id="section-recommendations" class="section level3">
+<h3>Recommendations:</h3>
+<ol style="list-style-type: decimal">
+<li>Maintain as is for the Consumer segment, and East and West regions.
+Give customers in remaining regions and segments incentives to shop with
+15-30% discounts to increase spending without sacrificing profits too
+much.
+<ol style="list-style-type: decimal">
+<li>Keep prices and quantities as is for September, November, and
+December. Incentivize spending in other months with small
+discounts.</li>
+</ol></li>
+<li>Copiers are by far the most profitable, and become more profitable
+as more are sold, so there is minimal need for providing discounts. 1.
+Consider not selling tables anymore. The margins are bad and tend to
+lose the Superstore money.</li>
+</ol>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("section-TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "mathjax-local/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+</div>
+  </div>
+
+
+</body></html>
